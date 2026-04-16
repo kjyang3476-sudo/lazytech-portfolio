@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>懶人科技 · Lazy Tech</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #111;
+    --white: #fafaf8;
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --gray: #6b7280;
+    --border: #e5e5e3;
+    --card-bg: #fff;
+  }
+
+  body {
+    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.6;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-size: 15px; font-weight: 700; letter-spacing: -0.3px;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-right { display: flex; gap: 8px; align-items: center; }
+  .lang-btn {
+    padding: 5px 12px;
+    font-size: 12px; font-weight: 600;
+    border: 1.5px solid var(--border);
+    background: white; cursor: pointer;
+    border-radius: 6px; color: var(--gray);
+    transition: all 0.15s;
+    letter-spacing: 0.3px;
+  }
+  .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .lang-btn.active { border-color: var(--accent); color: var(--accent); background: #eff6ff; }
+  .nav-cta {
+    padding: 7px 16px;
+    background: var(--black); color: white;
+    font-size: 13px; font-weight: 600;
+    border: none; cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--accent); }
+
+  /* CONTAINER */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* HERO */
+  .hero {
+    padding: 80px 0 72px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600;
+    color: var(--accent);
+    background: #eff6ff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 0.3px;
+  }
+  .hero-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero p {
+    font-size: 17px;
+    color: var(--gray);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 12px 24px;
+    background: var(--black); color: white;
+    font-size: 14px; font-weight: 600;
+    border: 2px solid var(--black);
+    border-radius: 8px; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+  .btn-secondary {
+    padding: 12px 24px;
+    background: transparent; color: var(--black);
+    font-size: 14px; font-weight: 600;
+    border: 2px solid var(--border);
+    border-radius: 8px; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--black); }
+
+  /* STATS */
+  .stats {
+    display: flex; gap: 40px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .stat-item { }
+  .stat-num {
+    font-size: 28px; font-weight: 800;
+    letter-spacing: -1px; color: var(--black);
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-size: 13px; color: var(--gray); margin-top: 2px; }
+
+  /* SECTION */
+  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  .section-label {
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--accent); margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 28px; font-weight: 800;
+    letter-spacing: -0.5px; margin-bottom: 8px;
+  }
+  .section-sub {
+    font-size: 15px; color: var(--gray);
+    margin-bottom: 40px; max-width: 480px;
+  }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .service-card {
+    padding: 24px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    background: var(--card-bg);
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .service-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .service-icon {
+    font-size: 24px; margin-bottom: 12px;
+  }
+  .service-title {
+    font-size: 15px; font-weight: 700; margin-bottom: 6px;
+  }
+  .service-desc {
+    font-size: 13px; color: var(--gray); line-height: 1.6;
+  }
+  .service-price {
+    margin-top: 14px;
+    font-size: 13px; font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* WORKS */
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .work-card {
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    transition: border-color 0.15s, transform 0.15s;
+    cursor: pointer;
+  }
+  .work-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .work-thumb {
+    height: 160px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .work-thumb-1 { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+  .work-thumb-2 { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
+  .work-thumb-3 { background: linear-gradient(135deg, #fce7f3, #fbcfe8); }
+  .work-body { padding: 16px; }
+  .work-tags { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+  .work-tag {
+    font-size: 11px; font-weight: 600;
+    padding: 2px 8px;
+    background: #f3f4f6;
+    border-radius: 4px;
+    color: var(--gray);
+  }
+  .work-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .work-desc { font-size: 13px; color: var(--gray); line-height: 1.5; }
+
+  /* STACK */
+  .stack-grid {
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .stack-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+    background: white;
+    transition: border-color 0.15s;
+  }
+  .stack-item:hover { border-color: var(--accent); }
+  .stack-icon { font-size: 16px; }
+
+  /* PROCESS */
+  .process-list {
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .process-item {
+    display: flex; gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .process-item:last-child { border-bottom: none; }
+  .process-num {
+    font-size: 32px; font-weight: 800;
+    color: #e5e5e3; letter-spacing: -1px;
+    min-width: 44px; line-height: 1;
+    padding-top: 2px;
+  }
+  .process-content { flex: 1; }
+  .process-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .process-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+  /* CTA */
+  .cta-section {
+    padding: 64px 0;
+    text-align: center;
+  }
+  .cta-section h2 {
+    font-size: 32px; font-weight: 800;
+    letter-spacing: -0.8px; margin-bottom: 12px;
+  }
+  .cta-section p {
+    font-size: 16px; color: var(--gray);
+    margin-bottom: 28px;
+  }
+  .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .fiverr-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 13px 24px;
+    background: #1dbf73; color: white;
+    font-size: 14px; font-weight: 700;
+    border: none; border-radius: 8px; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .fiverr-btn:hover { background: #19a463; }
+
+  /* FOOTER */
+  footer {
+    padding: 24px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-logo { font-size: 14px; font-weight: 700; }
+  .footer-logo span { color: var(--accent); }
+  .footer-copy { font-size: 12px; color: var(--gray); }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--black); color: white;
+    padding: 12px 20px; border-radius: 8px;
+    font-size: 14px; z-index: 100;
+    animation: fadeUp 0.3s ease;
+  }
+  @keyframes fadeUp {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .stats { gap: 24px; }
+    .hero { padding: 48px 0 40px; }
+    section { padding: 48px 0; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const CONTENT = {
+  zh: {
+    lang: "EN",
+    navCta: "聯絡我",
+    heroTag: "接受接案中",
+    heroTitle: <>你的想法，<em>快速實現</em></>,
+    heroTitleStr: "你的想法，快速實現",
+    heroDesc: "全端網頁開發，擅長 React 與 Node.js，善用 AI 工具加速交付。你說需求，我來搞定。",
+    heroBtnPrimary: "查看 Fiverr 方案",
+    heroBtnSecondary: "看作品集 ↓",
+    stats: [
+      { num: "5x", label: "AI 加速開發速度" },
+      { num: "3", label: "核心技術棧" },
+      { num: "快速", label: "交付優先" },
+    ],
+    servicesLabel: "服務項目",
+    servicesTitle: "我能幫你做什麼",
+    servicesSub: "從簡單的形象網站到複雜的網頁應用，都在處理範圍內。",
+    services: [
+      { icon: "🖥️", title: "形象網站 / 落地頁", desc: "乾淨、快速、RWD，適合個人品牌、小型企業、產品展示。", price: "從 NT$5,000 起" },
+      { icon: "⚙️", title: "網頁應用程式", desc: "有互動功能的網頁 App，登入系統、資料庫、API 串接都 OK。", price: "從 NT$15,000 起" },
+      { icon: "🔌", title: "API 串接 / 自動化", desc: "串接第三方 API、金流、爬蟲、或自動化工作流程。", price: "依需求報價" },
+      { icon: "🤖", title: "AI 功能整合", desc: "幫你的產品加入 ChatGPT、Claude 或其他 AI 能力。", price: "依需求報價" },
+      { icon: "🔄", title: "n8n 自動化工作流", desc: "用 n8n 串接你的工具鏈——自動通知、資料同步、排程任務、AI 觸發流程，讓重複的事情自己跑。", price: "從 NT$8,000 起" },
+    ],
+    worksLabel: "作品集",
+    worksTitle: "做過的東西",
+    worksSub: "以下是近期 side project，展示技術能力與設計風格。",
+    works: [
+      { icon: "✦", thumb: "work-thumb-1", tags: ["Next.js", "i18n", "AI"], title: "PromptLite", desc: "150 種 AI Prompt 分類整理，一鍵複製，支援繁中／英文，已上線運行。", url: "https://promptlite.app" },
+    ],
+    stackLabel: "技術棧",
+    stackTitle: "用什麼工具做事",
+    stack: ["⚛️ React", "🟩 Node.js", "🐍 Python", "🗃️ PostgreSQL", "☁️ Vercel", "🐳 Docker", "🤖 Claude API", "📦 Next.js"],
+    processLabel: "合作流程",
+    processTitle: "怎麼跟我合作",
+    process: [
+      { title: "說需求", desc: "在 Fiverr 傳訊息告訴我你想做什麼，我會在 24 小時內回覆並確認需求細節。" },
+      { title: "確認報價與時程", desc: "根據需求提供報價，通常 3–7 個工作天內交付，複雜專案另計。" },
+      { title: "開發 + 回報進度", desc: "開發過程中定期更新進度，有問題隨時溝通。" },
+      { title: "交付 + 調整", desc: "完成後提供原始碼與部署，包含一次免費修改。" },
+    ],
+    ctaTitle: "準備好開始了嗎？",
+    ctaDesc: "在 Fiverr 找到我，說說你的需求，我們來聊聊。",
+    ctaFiverr: "在 Fiverr 找我",
+    ctaEmail: "寄信給我",
+    footerCopy: "© 2026 懶人科技 · Lazy Tech",
+  },
+  en: {
+    lang: "中文",
+    navCta: "Contact Me",
+    heroTag: "Available for Work",
+    heroTitle: <>Your idea, <em>built fast</em></>,
+    heroTitleStr: "Your idea, built fast",
+    heroDesc: "Full-stack web development with React & Node.js. I use AI tools to ship faster without cutting corners. Tell me what you need.",
+    heroBtnPrimary: "View Fiverr Plans",
+    heroBtnSecondary: "See My Work ↓",
+    stats: [
+      { num: "5x", label: "Faster with AI tools" },
+      { num: "3", label: "Core tech stacks" },
+      { num: "Fast", label: "Delivery focused" },
+    ],
+    servicesLabel: "Services",
+    servicesTitle: "What I can build for you",
+    servicesSub: "From simple landing pages to full web applications — I've got it covered.",
+    services: [
+      { icon: "🖥️", title: "Landing Page / Portfolio", desc: "Clean, fast, fully responsive. Perfect for personal brands, small businesses, or product showcases.", price: "From $150" },
+      { icon: "⚙️", title: "Web Application", desc: "Interactive web apps with auth, database, and API integration. Built to scale.", price: "From $500" },
+      { icon: "🔌", title: "API Integration", desc: "Connect third-party APIs, payment gateways, scrapers, or automated workflows.", price: "Custom quote" },
+      { icon: "🤖", title: "AI Feature Integration", desc: "Add ChatGPT, Claude, or other AI capabilities to your existing product.", price: "Custom quote" },
+      { icon: "🔄", title: "n8n Workflow Automation", desc: "Connect your tools with n8n — auto notifications, data sync, scheduled tasks, AI-triggered pipelines. Let the boring stuff run itself.", price: "From $250" },
+    ],
+    worksLabel: "Portfolio",
+    worksTitle: "Things I've built",
+    worksSub: "Recent side projects showcasing my skills and design sense.",
+    works: [
+      { icon: "✦", thumb: "work-thumb-1", tags: ["Next.js", "i18n", "AI"], title: "PromptLite", desc: "150 curated AI prompts organized by category. One-click copy, bilingual (zh/en), live in production.", url: "https://promptlite.app" },
+    ],
+    stackLabel: "Tech Stack",
+    stackTitle: "Tools I work with",
+    stack: ["⚛️ React", "🟩 Node.js", "🐍 Python", "🗃️ PostgreSQL", "☁️ Vercel", "🐳 Docker", "🤖 Claude API", "📦 Next.js"],
+    processLabel: "How It Works",
+    processTitle: "Working with me",
+    process: [
+      { title: "Tell me your needs", desc: "Message me on Fiverr with what you want to build. I'll reply within 24 hours to clarify requirements." },
+      { title: "Agree on scope & timeline", desc: "I'll send a clear quote with delivery timeline. Most projects ship in 3–7 business days." },
+      { title: "Build & update you", desc: "I'll keep you posted during development and stay available for questions." },
+      { title: "Deliver & revise", desc: "You get the source code, deployment, and one free round of revisions." },
+    ],
+    ctaTitle: "Ready to start?",
+    ctaDesc: "Find me on Fiverr and tell me about your project. Let's build something.",
+    ctaFiverr: "Find Me on Fiverr",
+    ctaEmail: "Send an Email",
+    footerCopy: "© 2026 懶人科技 · Lazy Tech",
+  }
+};
+
+function App() {
+  const [lang, setLang] = useState("zh");
+  const [toast, setToast] = useState(null);
+  const t = CONTENT[lang];
+
+  const showToast = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2500);
+  };
+
+  const handleFiverr = () => showToast(lang === "zh" ? "Fiverr 連結（上線後填入）" : "Fiverr link coming soon!");
+  const handleEmail = () => showToast(lang === "zh" ? "Email 連結（上線後填入）" : "Email link coming soon!");
+  const handleWork = (title) => showToast(lang === "zh" ? `查看 ${title} Demo` : `View ${title} Demo`);
+
+  return (
+    <>
+      {/* NAV */}
+      <nav>
+        <div className="nav-logo">懶人科技 <span>·</span> Lazy Tech</div>
+        <div className="nav-right">
+          <button className="lang-btn active" onClick={() => setLang(lang === "zh" ? "en" : "zh")}>
+            {t.lang}
+          </button>
+          <button className="nav-cta" onClick={handleFiverr}>{t.navCta}</button>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <div className="container">
+        <div className="hero">
+          <div className="hero-tag">
+            <div className="hero-dot"></div>
+            {t.heroTag}
+          </div>
+          <h1>{t.heroTitle}</h1>
+          <p>{t.heroDesc}</p>
+          <div className="hero-btns">
+            <button className="btn-primary" onClick={handleFiverr}>{t.heroBtnPrimary}</button>
+            <button className="btn-secondary" onClick={() => document.getElementById('works').scrollIntoView({behavior:'smooth'})}>
+              {t.heroBtnSecondary}
+            </button>
+          </div>
+        </div>
+
+        {/* STATS */}
+        <div className="stats">
+          {t.stats.map((s, i) => (
+            <div key={i} className="stat-item">
+              <div className="stat-num">{s.num}</div>
+              <div className="stat-label">{s.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* SERVICES */}
+        <section id="services">
+          <div className="section-label">{t.servicesLabel}</div>
+          <div className="section-title">{t.servicesTitle}</div>
+          <div className="section-sub">{t.servicesSub}</div>
+          <div className="services-grid">
+            {t.services.map((s, i) => (
+              <div key={i} className="service-card">
+                <div className="service-icon">{s.icon}</div>
+                <div className="service-title">{s.title}</div>
+                <div className="service-desc">{s.desc}</div>
+                <div className="service-price">{s.price}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* WORKS */}
+        <section id="works">
+          <div className="section-label">{t.worksLabel}</div>
+          <div className="section-title">{t.worksTitle}</div>
+          <div className="section-sub">{t.worksSub}</div>
+          <div className="works-grid">
+            {t.works.map((w, i) => (
+              <div key={i} className="work-card" onClick={() => w.url ? window.open(w.url, '_blank') : handleWork(w.title)}>
+                <div className={`work-thumb ${w.thumb}`}>{w.icon}</div>
+                <div className="work-body">
+                  <div className="work-tags">
+                    {w.tags.map(tag => <span key={tag} className="work-tag">{tag}</span>)}
+                    {w.url && <span className="work-tag" style={{color:'#2563eb', background:'#eff6ff'}}>↗ Live</span>}
+                  </div>
+                  <div className="work-title">{w.title}</div>
+                  <div className="work-desc">{w.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* STACK */}
+        <section>
+          <div className="section-label">{t.stackLabel}</div>
+          <div className="section-title">{t.stackTitle}</div>
+          <div className="stack-grid">
+            {t.stack.map((s, i) => (
+              <div key={i} className="stack-item">
+                <span>{s}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* PROCESS */}
+        <section>
+          <div className="section-label">{t.processLabel}</div>
+          <div className="section-title">{t.processTitle}</div>
+          <div className="process-list">
+            {t.process.map((p, i) => (
+              <div key={i} className="process-item">
+                <div className="process-num">0{i+1}</div>
+                <div className="process-content">
+                  <div className="process-title">{p.title}</div>
+                  <div className="process-desc">{p.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA */}
+        <div className="cta-section">
+          <h2>{t.ctaTitle}</h2>
+          <p>{t.ctaDesc}</p>
+          <div className="cta-btns">
+            <button className="fiverr-btn" onClick={handleFiverr}>
+              <span>●</span> {t.ctaFiverr}
+            </button>
+            <button className="btn-secondary" onClick={handleEmail}>{t.ctaEmail}</button>
+          </div>
+        </div>
+      </div>
+
+      {/* FOOTER */}
+      <footer>
+        <div className="footer-logo">懶人科技 <span>·</span> Lazy Tech</div>
+        <div className="footer-copy">{t.footerCopy}</div>
+      </footer>
+
+      {toast && <div className="toast">{toast}</div>}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
