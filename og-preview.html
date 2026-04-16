@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<title>OG · Lazy Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900;1,9..144,500&family=JetBrains+Mono:wght@500;600&family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: #f5f1e8; }
+  .og {
+    width: 1200px; height: 630px;
+    background: #f5f1e8;
+    padding: 64px 72px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+    font-family: 'Noto Serif TC', serif;
+  }
+  .og::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    opacity: 0.35; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .top {
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 2;
+  }
+  .logo {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900; font-size: 28px; color: #1a1a1a;
+    letter-spacing: -0.3px;
+  }
+  .logo .sep { color: #c2410c; margin: 0 8px; }
+  .logo .en {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 19px; color: #5a5651; font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #5a5651; display: flex; align-items: center; gap: 10px;
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #16a34a; }
+  .rule {
+    width: 60px; height: 1.5px; background: #1a1a1a; opacity: 0.3;
+    margin: 28px 0 0;
+    position: relative; z-index: 2;
+  }
+  .middle { position: relative; z-index: 2; flex: 1; display: flex; align-items: center; }
+  .middle h1 {
+    font-family: 'Noto Serif TC', 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 130px; letter-spacing: -4px; line-height: 1.02;
+    color: #1a1a1a;
+  }
+  .middle h1 em {
+    font-family: 'LXGW WenKai', serif;
+    font-style: normal; font-weight: 700;
+    color: #c2410c; letter-spacing: 2px;
+    position: relative; display: inline-block;
+    padding-right: 8px;
+  }
+  .middle h1 em svg {
+    position: absolute; left: -2%; right: -2%; bottom: -22px;
+    width: 104%; height: 20px;
+  }
+  .bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    position: relative; z-index: 2;
+  }
+  .bottom .url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; color: #5a5651; font-weight: 500;
+    letter-spacing: 1.5px;
+  }
+  .bottom .meta {
+    font-family: 'Fraunces', serif;
+    font-size: 26px; font-style: italic;
+    color: #c2410c; font-weight: 500;
+  }
+</style>
+</head>
+<body>
+<div class="og">
+  <div class="top">
+    <div class="logo">
+      懶人科技 <span class="sep">·</span> <span class="en">Lazy Tech</span>
+    </div>
+    <div class="tag">
+      <span class="dot"></span> Available for Work · Taipei
+    </div>
+  </div>
+  <div class="rule"></div>
+  <div class="middle">
+    <h1>
+      Your idea,<br>
+      <em>built fast<svg viewBox="0 0 300 14" preserveAspectRatio="none"><path d="M 4 8 Q 30 2, 56 7 T 108 8 T 160 7 T 212 8 T 264 7 T 296 8" stroke="#c2410c" stroke-width="3" fill="none" stroke-linecap="round"/></svg></em>
+    </h1>
+  </div>
+  <div class="bottom">
+    <div class="url">LAZYTECH.DEV · FULL-STACK × AI-ACCELERATED</div>
+    <div class="meta">— Built lazy, shipped fast.</div>
+  </div>
+</div>
+</body>
+</html>

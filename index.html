@@ -3,7 +3,48 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>懶人科技 · Lazy Tech</title>
+<title>懶人科技 · Lazy Tech — Full-stack web dev, built fast with AI</title>
+<meta name="description" content="懶人科技 / Lazy Tech — 全端網頁開發，擅長 React 與 Node.js。善用 AI 工具加速交付，3–7 天把想法做成能上線的產品。" />
+<meta name="author" content="Kai · Lazy Tech" />
+<meta name="theme-color" content="#f5f1e8" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="懶人科技 · Lazy Tech" />
+<meta property="og:description" content="Your idea, built fast. Full-stack web development with React & Node.js, accelerated by AI tools." />
+<meta property="og:image" content="/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Lazy Tech — Your idea, built fast." />
+<meta property="og:locale" content="zh_TW" />
+<meta property="og:locale:alternate" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="懶人科技 · Lazy Tech" />
+<meta name="twitter:description" content="Your idea, built fast." />
+<meta name="twitter:image" content="/og.png" />
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23f5f1e8'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='44' font-weight='700' text-anchor='middle' fill='%23c2410c'%3EL%3C/text%3E%3C/svg%3E" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "懶人科技 · Lazy Tech",
+  "description": "Full-stack web development studio. React, Node.js, AI integration.",
+  "areaServed": "Worldwide",
+  "serviceType": ["Web Development", "Web Application", "API Integration", "AI Integration", "Workflow Automation"],
+  "provider": {
+    "@type": "Person",
+    "name": "Kai",
+    "jobTitle": "Full-stack Developer",
+    "address": { "@type": "PostalAddress", "addressLocality": "Taipei", "addressCountry": "TW" }
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,0..100;1,9..144,400..700,0..100&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
@@ -11,559 +52,1956 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --black: #111;
-    --white: #fafaf8;
-    --accent: #2563eb;
-    --accent-dark: #1d4ed8;
-    --gray: #6b7280;
-    --border: #e5e5e3;
-    --card-bg: #fff;
+    --ink: #1a1a1a;
+    --ink-soft: #5a5651;
+    --ink-faint: #8a857e;
+    --paper: #f5f1e8;
+    --paper-deep: #ede7d6;
+    --paper-card: #faf6ec;
+    --rule: #d9d2c2;
+    --rule-soft: #e5dfcf;
+    --brick: #c2410c;
+    --brick-deep: #9a330a;
+    --indigo: #1e3a8a;
+    --font-serif: 'Noto Serif TC', 'Fraunces', 'Songti TC', 'Source Han Serif TC', serif;
+    --font-sans: 'Noto Sans TC', 'Inter', 'PingFang TC', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+    --font-hand: 'LXGW WenKai', 'Noto Serif TC', serif;
   }
 
+  html { scroll-behavior: smooth; }
+
   body {
-    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
-    background: var(--white);
-    color: var(--black);
-    line-height: 1.6;
+    font-family: var(--font-sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 17px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "palt" 1, "kern" 1;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Paper noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; background: none; border: none; color: inherit; }
 
-  /* NAV */
+  /* === NAV === */
   nav {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(250,250,248,0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 24px;
-    height: 56px;
+    background: rgba(245, 241, 232, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 32px;
+    height: 60px;
     display: flex; align-items: center; justify-content: space-between;
   }
   .nav-logo {
-    font-size: 15px; font-weight: 700; letter-spacing: -0.3px;
+    font-family: var(--font-serif);
+    font-size: 18px; font-weight: 700;
+    letter-spacing: -0.5px;
   }
-  .nav-logo span { color: var(--accent); }
-  .nav-right { display: flex; gap: 8px; align-items: center; }
+  .nav-logo .sep { color: var(--brick); margin: 0 4px; }
+  .nav-logo .en {
+    font-family: var(--font-mono);
+    font-size: 13px; font-weight: 500;
+    color: var(--ink-soft);
+    margin-left: 2px;
+  }
+  .nav-right { display: flex; gap: 12px; align-items: center; }
   .lang-btn {
-    padding: 5px 12px;
-    font-size: 12px; font-weight: 600;
-    border: 1.5px solid var(--border);
-    background: white; cursor: pointer;
-    border-radius: 6px; color: var(--gray);
-    transition: all 0.15s;
-    letter-spacing: 0.3px;
+    font-family: var(--font-mono);
+    padding: 6px 10px;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--ink-soft);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: transparent;
+    transition: all 0.2s;
   }
-  .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .lang-btn.active { border-color: var(--accent); color: var(--accent); background: #eff6ff; }
+  .lang-btn:hover { border-color: var(--ink); color: var(--ink); }
   .nav-cta {
-    padding: 7px 16px;
-    background: var(--black); color: white;
+    font-family: var(--font-sans);
+    padding: 8px 18px;
+    background: var(--ink);
+    color: var(--paper);
     font-size: 13px; font-weight: 600;
-    border: none; cursor: pointer;
-    border-radius: 6px;
-    transition: background 0.15s;
+    border-radius: 4px;
+    transition: background 0.2s;
   }
-  .nav-cta:hover { background: var(--accent); }
+  .nav-cta:hover { background: var(--brick); }
 
-  /* CONTAINER */
-  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  /* === CONTAINER SYSTEM === */
+  .wide    { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+  .main    { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
+  .narrow  { max-width: 680px;  margin: 0 auto; padding: 0 32px; }
 
-  /* HERO */
+  /* === HERO === */
   .hero {
-    padding: 80px 0 72px;
-    border-bottom: 1px solid var(--border);
+    padding: 120px 0 96px;
+    position: relative;
   }
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12px; font-weight: 600;
-    color: var(--accent);
-    background: #eff6ff;
-    padding: 4px 10px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    letter-spacing: 0.3px;
+  .hero-meta {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 40px;
   }
-  .hero-dot {
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
+  .hero-meta .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #16a34a;
+    animation: pulse 2.4s infinite;
   }
+  .hero-meta .sep { color: var(--rule); }
   @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(22,163,74,.4); }
+    50% { opacity: 0.5; box-shadow: 0 0 0 8px rgba(22,163,74,0); }
   }
   .hero h1 {
-    font-size: clamp(32px, 5vw, 52px);
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -1.5px;
-    margin-bottom: 16px;
+    font-family: var(--font-serif);
+    font-size: clamp(44px, 7.5vw, 96px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    margin-bottom: 40px;
+    max-width: 950px;
   }
   .hero h1 em {
+    font-family: var(--font-hand);
     font-style: normal;
-    color: var(--accent);
+    color: var(--brick);
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    letter-spacing: 1px;
+  }
+  .underline-wave {
+    position: absolute;
+    left: -4%; right: -4%;
+    bottom: -12px;
+    width: 108%;
+    height: 14px;
+    pointer-events: none;
   }
   .hero p {
-    font-size: 17px;
-    color: var(--gray);
-    max-width: 520px;
-    line-height: 1.7;
-    margin-bottom: 32px;
+    font-size: 21px;
+    color: var(--ink-soft);
+    max-width: 620px;
+    line-height: 1.6;
+    margin-bottom: 48px;
   }
-  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
   .btn-primary {
-    padding: 12px 24px;
-    background: var(--black); color: white;
+    padding: 14px 28px;
+    background: var(--ink);
+    color: var(--paper);
     font-size: 14px; font-weight: 600;
-    border: 2px solid var(--black);
-    border-radius: 8px; cursor: pointer;
-    transition: all 0.15s;
+    border-radius: 4px;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
   }
-  .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
-  .btn-secondary {
-    padding: 12px 24px;
-    background: transparent; color: var(--black);
-    font-size: 14px; font-weight: 600;
-    border: 2px solid var(--border);
-    border-radius: 8px; cursor: pointer;
-    transition: all 0.15s;
+  .btn-primary:hover { background: var(--brick); transform: translateY(-1px); }
+  .btn-text {
+    padding: 14px 8px;
+    font-size: 14px; font-weight: 500;
+    color: var(--ink);
+    position: relative;
   }
-  .btn-secondary:hover { border-color: var(--black); }
+  .btn-text::after {
+    content: ''; position: absolute;
+    left: 8px; right: 8px; bottom: 8px;
+    height: 1px; background: var(--ink);
+    transition: right 0.25s;
+  }
+  .btn-text:hover::after { right: 40%; }
+  .btn-text .arrow { margin-left: 6px; transition: transform 0.2s; display: inline-block; }
+  .btn-text:hover .arrow { transform: translateX(4px); }
 
-  /* STATS */
+  /* === STATS BAR === */
   .stats {
-    display: flex; gap: 40px;
-    padding: 32px 0;
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 28px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
   }
-  .stat-item { }
+  .stat {
+    padding: 0 8px;
+    border-right: 1px solid var(--rule);
+  }
+  .stat:last-child { border-right: none; }
   .stat-num {
-    font-size: 28px; font-weight: 800;
-    letter-spacing: -1px; color: var(--black);
+    font-family: 'Fraunces', var(--font-serif);
+    font-size: 44px; font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 10px;
   }
-  .stat-num span { color: var(--accent); }
-  .stat-label { font-size: 13px; color: var(--gray); margin-top: 2px; }
+  .stat-num em { color: var(--brick); font-style: italic; font-weight: 500; }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--ink-soft);
+  }
 
-  /* SECTION */
-  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  /* === SECTION === */
+  section { padding: 112px 0; border-bottom: 1px solid var(--rule); }
   .section-label {
-    font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 1.5px;
-    color: var(--accent); margin-bottom: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--brick);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
   }
+  .section-label .star { color: var(--brick); font-size: 14px; }
   .section-title {
-    font-size: 28px; font-weight: 800;
-    letter-spacing: -0.5px; margin-bottom: 8px;
+    font-family: var(--font-serif);
+    font-size: clamp(34px, 4.8vw, 56px);
+    font-weight: 900;
+    letter-spacing: -1.2px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    max-width: 820px;
+  }
+  .section-title em {
+    font-family: var(--font-hand);
+    font-style: normal;
+    color: var(--brick);
+    font-weight: 700;
+    letter-spacing: 0.5px;
   }
   .section-sub {
-    font-size: 15px; color: var(--gray);
-    margin-bottom: 40px; max-width: 480px;
+    font-size: 18px;
+    color: var(--ink-soft);
+    margin-bottom: 64px;
+    max-width: 580px;
+    line-height: 1.6;
   }
 
-  /* SERVICES */
+  /* === ABOUT === */
+  .about-block {
+    padding: 40px 0;
+  }
+  .about-p {
+    font-size: 18px;
+    line-height: 1.9;
+    color: var(--ink);
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+  .about-p.lead::first-letter {
+    font-family: var(--font-hand);
+    font-weight: 700;
+    font-size: 96px;
+    color: var(--brick);
+    float: left;
+    line-height: 0.88;
+    margin: 10px 16px 0 0;
+    padding-top: 8px;
+  }
+  .about-sig {
+    margin-top: 40px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 1px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .about-sig .line { flex: 1; height: 1px; background: var(--rule); max-width: 80px; }
+
+  /* === SERVICES === */
   .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 16px;
-  }
-  .service-card {
-    padding: 24px;
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    background: var(--card-bg);
-    transition: border-color 0.15s, transform 0.15s;
-  }
-  .service-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .service-icon {
-    font-size: 24px; margin-bottom: 12px;
-  }
-  .service-title {
-    font-size: 15px; font-weight: 700; margin-bottom: 6px;
-  }
-  .service-desc {
-    font-size: 13px; color: var(--gray); line-height: 1.6;
-  }
-  .service-price {
-    margin-top: 14px;
-    font-size: 13px; font-weight: 700;
-    color: var(--accent);
-  }
-
-  /* WORKS */
-  .works-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
   }
-  .work-card {
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
+  .service-card {
+    padding: 32px 28px 28px;
+    background: var(--paper-card);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    position: relative;
+    transition: all 0.25s;
+  }
+  .service-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--ink);
+    box-shadow: 6px 8px 0 var(--rule);
+  }
+  .service-num {
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 1.5px;
+    color: var(--ink-faint);
+    margin-bottom: 20px;
+  }
+  .service-title {
+    font-family: var(--font-serif);
+    font-size: 22px; font-weight: 900;
+    letter-spacing: -0.3px;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .service-desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .service-price {
+    font-family: var(--font-mono);
+    font-size: 12px; font-weight: 600;
+    color: var(--brick);
+    letter-spacing: 0.5px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--rule);
+  }
+
+  /* === CASE STUDY === */
+  .case-meta {
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    display: flex; flex-wrap: wrap; gap: 16px;
+  }
+  .case-meta span { display: flex; align-items: center; gap: 8px; }
+  .case-meta .dot-sep { color: var(--brick); }
+  .case-title {
+    font-family: var(--font-serif);
+    font-size: clamp(36px, 5.6vw, 68px);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1.15;
+    margin-bottom: 40px;
+  }
+  .case-title em {
+    font-family: var(--font-hand);
+    font-style: normal;
+    color: var(--brick);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: inline-block;
+  }
+
+  .case-decisions { margin: 72px 0; }
+  .case-decision {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .case-decision:last-child { border-bottom: none; }
+  .case-num {
+    font-family: var(--font-serif);
+    font-size: 48px; font-weight: 500;
+    font-style: italic;
+    color: var(--brick);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .case-dec-title {
+    font-family: var(--font-serif);
+    font-size: 26px; font-weight: 900;
+    letter-spacing: -0.3px;
+    line-height: 1.35;
+    margin-bottom: 14px;
+  }
+  .case-dec-body {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    max-width: 640px;
+    font-weight: 400;
+  }
+  .case-dec-body code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    background: var(--paper-deep);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: var(--ink);
+  }
+
+  .pull-quote {
+    padding: 80px 0 40px;
+    text-align: center;
+  }
+  .pull-quote blockquote {
+    font-family: var(--font-hand);
+    font-size: clamp(28px, 4vw, 46px);
+    font-weight: 700;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 2px;
+    color: var(--ink);
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .pull-quote blockquote::before,
+  .pull-quote blockquote::after {
+    content: '"';
+    font-family: var(--font-serif);
+    color: var(--brick);
+    font-size: 1.2em;
+    font-style: normal;
+    opacity: 0.3;
+  }
+  .pull-quote cite {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 24px;
+    font-style: normal;
+  }
+
+  .case-link {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-serif);
+    font-size: 22px; font-weight: 500;
+    font-style: italic;
+    color: var(--ink);
+    padding: 4px 2px;
+    border-bottom: 2px solid var(--brick);
+    transition: all 0.2s;
+  }
+  .case-link:hover { color: var(--brick); }
+
+  /* === WORKS (featured single) === */
+  .works-feature {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 0;
+    background: var(--paper-card);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
     overflow: hidden;
-    background: white;
-    transition: border-color 0.15s, transform 0.15s;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .works-feature:hover {
+    border-color: var(--ink);
+    transform: translateY(-3px);
+    box-shadow: 8px 10px 0 var(--rule);
+  }
+  .work-thumb {
+    min-height: 340px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    font-family: 'Fraunces', var(--font-serif);
+    font-size: 96px;
+    color: var(--brick);
+  }
+  .work-thumb-1 { background: linear-gradient(135deg, #f5deb3, #e8c88c); }
+  .work-body {
+    padding: 56px 48px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .work-meta {
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .work-meta .live {
+    color: var(--brick);
+    margin-left: 8px;
+  }
+  .work-title {
+    font-family: var(--font-serif);
+    font-size: 36px; font-weight: 900;
+    letter-spacing: -0.8px;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .work-desc {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .work-link {
+    font-family: var(--font-mono);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--ink);
+    padding-bottom: 4px;
+    border-bottom: 1.5px solid var(--brick);
+    align-self: flex-start;
+  }
+  @media (max-width: 800px) {
+    .works-feature { grid-template-columns: 1fr; }
+    .work-body { padding: 32px 28px; }
+    .work-thumb { min-height: 220px; font-size: 72px; }
+  }
+
+  /* === PRICING === */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+    background: var(--paper-card);
+  }
+  .price-col {
+    padding: 40px 32px;
+    border-right: 1px solid var(--rule);
+    display: flex; flex-direction: column;
+  }
+  .price-col:last-child { border-right: none; }
+  .price-col.featured {
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+  }
+  .price-col.featured .price-num,
+  .price-col.featured .price-name,
+  .price-col.featured .price-feature { color: var(--paper); }
+  .price-col.featured .price-meta,
+  .price-col.featured .price-feature-soft { color: var(--paper-deep); opacity: 0.7; }
+  .recommended-badge {
+    position: absolute;
+    top: -12px; right: 20px;
+    font-family: var(--font-mono);
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    background: var(--brick); color: var(--paper);
+    padding: 5px 12px;
+    transform: rotate(2deg);
+  }
+  .price-name {
+    font-family: var(--font-serif);
+    font-size: 26px; font-weight: 900;
+    letter-spacing: -0.3px;
+    margin-bottom: 6px;
+  }
+  .price-meta {
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+  }
+  .price-num {
+    font-family: 'Fraunces', var(--font-serif);
+    font-size: 38px; font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 4px;
+  }
+  .price-num small {
+    font-size: 14px; font-weight: 500;
+    color: var(--ink-soft);
+    margin-left: 4px;
+  }
+  .price-col.featured .price-num small { color: var(--paper-deep); }
+  .price-timeline {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .price-col.featured .price-timeline {
+    color: var(--paper-deep);
+    border-color: rgba(250, 246, 236, 0.25);
+  }
+  .price-features {
+    list-style: none;
+    margin-bottom: 32px;
+    flex: 1;
+  }
+  .price-feature {
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 8px 0;
+    display: flex; gap: 10px;
+  }
+  .price-feature::before {
+    content: '→';
+    font-family: var(--font-mono);
+    color: var(--brick);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .price-col.featured .price-feature::before { color: var(--paper); }
+  .price-cta {
+    padding: 12px 20px;
+    font-size: 13px; font-weight: 600;
+    border-radius: 3px;
+    background: var(--ink); color: var(--paper);
+    transition: all 0.2s;
+  }
+  .price-col.featured .price-cta {
+    background: var(--paper); color: var(--ink);
+  }
+  .price-cta:hover { background: var(--brick); color: var(--paper); }
+
+  /* === WRITING === */
+  .writing-list { display: flex; flex-direction: column; gap: 0; }
+  .writing-item {
+    display: grid;
+    grid-template-columns: 140px 1fr 100px;
+    gap: 32px;
+    align-items: baseline;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+    transition: padding 0.2s;
     cursor: pointer;
   }
-  .work-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .work-thumb {
-    height: 160px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 40px;
-    position: relative;
-    overflow: hidden;
+  .writing-item:hover { padding-left: 12px; }
+  .writing-item:hover .writing-title { color: var(--brick); }
+  .writing-meta {
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--ink-soft);
   }
-  .work-thumb-1 { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
-  .work-thumb-2 { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
-  .work-thumb-3 { background: linear-gradient(135deg, #fce7f3, #fbcfe8); }
-  .work-body { padding: 16px; }
-  .work-tags { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
-  .work-tag {
-    font-size: 11px; font-weight: 600;
-    padding: 2px 8px;
-    background: #f3f4f6;
-    border-radius: 4px;
-    color: var(--gray);
+  .writing-title {
+    font-family: var(--font-serif);
+    font-size: 21px; font-weight: 700;
+    letter-spacing: -0.2px;
+    line-height: 1.5;
+    transition: color 0.2s;
   }
-  .work-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .work-desc { font-size: 13px; color: var(--gray); line-height: 1.5; }
+  .writing-read {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-align: right;
+    letter-spacing: 0.5px;
+  }
 
-  /* STACK */
-  .stack-grid {
-    display: flex; flex-wrap: wrap; gap: 10px;
-  }
-  .stack-item {
-    display: flex; align-items: center; gap: 8px;
-    padding: 8px 14px;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    font-size: 13px; font-weight: 600;
-    background: white;
-    transition: border-color 0.15s;
-  }
-  .stack-item:hover { border-color: var(--accent); }
-  .stack-icon { font-size: 16px; }
-
-  /* PROCESS */
-  .process-list {
-    display: flex; flex-direction: column; gap: 0;
-  }
+  /* === PROCESS === */
+  .process-list { }
   .process-item {
-    display: flex; gap: 20px;
-    padding: 20px 0;
-    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 80px 1fr 280px;
+    gap: 32px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--rule);
   }
   .process-item:last-child { border-bottom: none; }
   .process-num {
-    font-size: 32px; font-weight: 800;
-    color: #e5e5e3; letter-spacing: -1px;
-    min-width: 44px; line-height: 1;
-    padding-top: 2px;
+    font-family: var(--font-serif);
+    font-size: 42px; font-weight: 500;
+    font-style: italic;
+    color: var(--brick);
+    line-height: 1;
   }
-  .process-content { flex: 1; }
-  .process-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .process-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
+  .process-title {
+    font-family: var(--font-serif);
+    font-size: 22px; font-weight: 900;
+    letter-spacing: -0.3px;
+    margin-bottom: 8px;
+  }
+  .process-desc {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .process-deliverable {
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--ink-soft);
+    padding: 16px 20px;
+    background: var(--paper-deep);
+    border-left: 2px solid var(--brick);
+    line-height: 1.7;
+  }
+  .process-deliverable strong {
+    display: block;
+    color: var(--brick);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    font-size: 10px;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
 
-  /* CTA */
+  /* === STACK === */
+  .stack-wall {
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .stack-item {
+    font-family: var(--font-mono);
+    font-size: 13px; font-weight: 500;
+    padding: 10px 16px;
+    background: var(--paper-card);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+  .stack-item:hover {
+    border-color: var(--ink);
+    background: var(--ink); color: var(--paper);
+    transform: translateY(-1px);
+  }
+
+  /* === FAQ === */
+  .faq-list { }
+  .faq-item {
+    border-bottom: 1px solid var(--rule);
+  }
+  .faq-q {
+    width: 100%;
+    padding: 24px 0;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;
+    text-align: left;
+    font-family: var(--font-serif);
+    font-size: 19px; font-weight: 700;
+    letter-spacing: -0.2px;
+    line-height: 1.5;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .faq-q:hover { color: var(--brick); }
+  .faq-toggle {
+    font-family: var(--font-mono);
+    font-size: 20px; font-weight: 400;
+    color: var(--brick);
+    flex-shrink: 0;
+    transition: transform 0.25s;
+  }
+  .faq-item.open .faq-toggle { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+  .faq-item.open .faq-a {
+    max-height: 400px;
+    padding-bottom: 28px;
+  }
+
+  /* === CTA === */
   .cta-section {
-    padding: 64px 0;
+    padding: 140px 0;
     text-align: center;
+    border-bottom: 1px solid var(--rule);
   }
-  .cta-section h2 {
-    font-size: 32px; font-weight: 800;
-    letter-spacing: -0.8px; margin-bottom: 12px;
-  }
-  .cta-section p {
-    font-size: 16px; color: var(--gray);
+  .cta-title {
+    font-family: var(--font-serif);
+    font-size: clamp(40px, 6.5vw, 80px);
+    font-weight: 900;
+    letter-spacing: -1.8px;
+    line-height: 1.15;
     margin-bottom: 28px;
   }
-  .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .fiverr-btn {
-    display: flex; align-items: center; gap: 8px;
-    padding: 13px 24px;
-    background: #1dbf73; color: white;
-    font-size: 14px; font-weight: 700;
-    border: none; border-radius: 8px; cursor: pointer;
-    transition: background 0.15s;
+  .cta-title em {
+    font-family: var(--font-hand);
+    color: var(--brick);
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 1px;
   }
-  .fiverr-btn:hover { background: #19a463; }
+  .cta-desc {
+    font-size: 19px;
+    color: var(--ink-soft);
+    margin-bottom: 48px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+  .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
-  /* FOOTER */
+  /* === FOOTER === */
   footer {
-    padding: 24px;
-    border-top: 1px solid var(--border);
+    padding: 40px 32px;
     display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 12px;
+    flex-wrap: wrap; gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.5px;
   }
-  .footer-logo { font-size: 14px; font-weight: 700; }
-  .footer-logo span { color: var(--accent); }
-  .footer-copy { font-size: 12px; color: var(--gray); }
+  .footer-logo { font-family: var(--font-serif); font-size: 15px; color: var(--ink); font-weight: 600; }
+  .footer-logo .sep { color: var(--brick); }
 
-  /* TOAST */
+  /* === TOAST === */
   .toast {
-    position: fixed; bottom: 24px; right: 24px;
-    background: var(--black); color: white;
-    padding: 12px 20px; border-radius: 8px;
-    font-size: 14px; z-index: 100;
+    position: fixed; bottom: 32px; right: 32px;
+    background: var(--ink); color: var(--paper);
+    padding: 14px 22px; border-radius: 3px;
+    font-size: 13px; z-index: 100;
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
     animation: fadeUp 0.3s ease;
+    box-shadow: 4px 6px 0 var(--brick);
   }
   @keyframes fadeUp {
     from { transform: translateY(10px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
   }
 
+  /* === ARTICLE MODAL === */
+  .article-overlay {
+    position: fixed; inset: 0; z-index: 80;
+    background: var(--paper);
+    overflow-y: auto;
+    animation: overlayIn 0.25s ease both;
+  }
+  @keyframes overlayIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .article-overlay::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none;
+    opacity: 0.35; mix-blend-mode: multiply; z-index: -1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .article-close {
+    position: fixed; top: 24px; right: 24px; z-index: 2;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--paper-card);
+    border: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 20px; color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .article-close:hover {
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+    transform: rotate(90deg);
+  }
+  .article-inner {
+    max-width: 680px; margin: 0 auto;
+    padding: 96px 32px 120px;
+    animation: articleIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .article-back {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--ink);
+    padding: 12px 20px 12px 16px;
+    background: var(--paper-card);
+    border: 1.5px solid var(--rule);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 48px;
+  }
+  .article-back:hover {
+    border-color: var(--ink);
+    background: var(--ink); color: var(--paper);
+    transform: translateX(-4px);
+  }
+  .article-back .arrow {
+    font-size: 18px;
+    transition: transform 0.2s;
+  }
+  .article-back:hover .arrow { transform: translateX(-3px); }
+  .article-footer .article-back { margin-bottom: 0; }
+  @keyframes articleIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .article-meta {
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--brick);
+    margin-bottom: 28px;
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+  }
+  .article-meta .sep { color: var(--rule); }
+  .article-title {
+    font-family: var(--font-serif);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 900;
+    letter-spacing: -1.2px;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 40px;
+  }
+  .article-title em {
+    font-family: var(--font-hand);
+    font-style: normal; color: var(--brick); font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .article-body { font-size: 18px; line-height: 1.9; color: var(--ink); }
+  .article-body p { margin-bottom: 24px; }
+  .article-body p.lead::first-letter {
+    font-family: var(--font-hand);
+    font-weight: 700; font-size: 96px;
+    color: var(--brick); float: left;
+    line-height: 0.88;
+    margin: 10px 16px 0 0;
+    padding-top: 8px;
+  }
+  .article-body h3 {
+    font-family: var(--font-serif);
+    font-size: 22px; font-weight: 900;
+    letter-spacing: -0.3px;
+    margin: 40px 0 16px;
+    color: var(--ink);
+  }
+  .article-body code {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    background: var(--paper-deep);
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+  .article-body blockquote {
+    border-left: 3px solid var(--brick);
+    padding: 4px 0 4px 24px;
+    margin: 32px 0;
+    font-family: var(--font-hand);
+    font-size: 22px; font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 1px;
+    line-height: 1.6;
+  }
+  .article-body strong { font-weight: 700; color: var(--ink); }
+  .article-footer {
+    margin-top: 56px; padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 12px; letter-spacing: 1px;
+    color: var(--ink-soft);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+
+  /* === SCROLL PROGRESS === */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--brick);
+    z-index: 60;
+    will-change: width;
+    transition: width 0.08s linear;
+  }
+
+  /* === REVEAL ON SCROLL === */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: opacity, transform;
+  }
+  [data-reveal].revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Page fade-in */
+  body { animation: pageFade 0.5s ease both; }
+  @keyframes pageFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Wave draw animation */
+  .wave-path {
+    stroke-dasharray: 350;
+    stroke-dashoffset: 350;
+    animation: draw 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.7s forwards;
+  }
+  @keyframes draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* Drop cap entrance */
+  .about-p.lead.revealed::first-letter {
+    animation: capIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
+  }
+  @keyframes capIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Case num parallax (scroll-driven) */
+  .case-num {
+    will-change: transform;
+    transition: transform 0.1s linear;
+  }
+
+  /* Reduced motion — respect user preference */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    [data-reveal] { opacity: 1; transform: none; }
+    .wave-path { stroke-dashoffset: 0; animation: none; }
+    .scroll-progress { transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 24px 12px; }
+    .stat:nth-child(2) { border-right: none; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .price-col { border-right: none; border-bottom: 1px solid var(--rule); }
+    .price-col:last-child { border-bottom: none; }
+    .process-item { grid-template-columns: 60px 1fr; }
+    .process-deliverable { grid-column: 1 / -1; }
+    .writing-item { grid-template-columns: 100px 1fr; }
+    .writing-read { display: none; }
+    .case-decision { grid-template-columns: 60px 1fr; gap: 20px; }
+  }
   @media (max-width: 600px) {
-    .stats { gap: 24px; }
-    .hero { padding: 48px 0 40px; }
-    section { padding: 48px 0; }
+    nav { padding: 0 20px; }
+    .main, .wide, .narrow { padding: 0 20px; }
+    .hero { padding: 72px 0 64px; }
+    section { padding: 80px 0; }
+    .hero h1 { letter-spacing: -1.5px; }
+    .case-decision { grid-template-columns: 1fr; }
+    .case-num { font-size: 32px; }
   }
 </style>
 </head>
 <body>
 <div id="root"></div>
+
+<!-- Hand-drawn SVG definitions -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="wave" viewBox="0 0 300 14">
+      <path d="M 4 8 Q 30 2, 56 7 T 108 8 T 160 7 T 212 8 T 264 7 T 296 8"
+            stroke="#c2410c" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.85"/>
+    </symbol>
+    <symbol id="star" viewBox="0 0 24 24">
+      <path d="M12 3 L13.5 10 L21 12 L13.5 14 L12 21 L10.5 14 L3 12 L10.5 10 Z"
+            fill="currentColor" opacity="0.9"/>
+    </symbol>
+  </defs>
+</svg>
+
 <script type="text/babel">
 const { useState, useEffect } = React;
+
+const Wave = () => (
+  <svg className="underline-wave" preserveAspectRatio="none" viewBox="0 0 300 14">
+    <path d="M 4 8 Q 30 2, 56 7 T 108 8 T 160 7 T 212 8 T 264 7 T 296 8"
+          stroke="#c2410c" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.85"
+          className="wave-path"/>
+  </svg>
+);
+
+const Star = ({ className }) => (
+  <svg width="12" height="12" className={className} style={{verticalAlign:'middle'}}>
+    <use href="#star" />
+  </svg>
+);
 
 const CONTENT = {
   zh: {
     lang: "EN",
-    navCta: "聯絡我",
-    heroTag: "接受接案中",
-    heroTitle: <>你的想法，<em>快速實現</em></>,
-    heroTitleStr: "你的想法，快速實現",
-    heroDesc: "全端網頁開發，擅長 React 與 Node.js，善用 AI 工具加速交付。你說需求，我來搞定。",
-    heroBtnPrimary: "查看 Fiverr 方案",
-    heroBtnSecondary: "看作品集 ↓",
+    navCta: "聯絡",
+    hero: {
+      meta: ["接受接案中", "台北 · 遠端"],
+      title: <>你的想法，<em>快速實現<Wave/></em></>,
+      desc: "全端網頁開發，擅長 React 與 Node.js。善用 AI 工具加速交付，但不在品質上打折。你說需求，我來搞定。",
+      btnPrimary: "查看合作方案",
+      btnSecondary: "看作品",
+    },
     stats: [
-      { num: "5x", label: "AI 加速開發速度" },
-      { num: "3", label: "核心技術棧" },
-      { num: "快速", label: "交付優先" },
+      { num: <>5<em>×</em></>, label: "AI 加速開發" },
+      { num: <>3<em>–</em>7</>, label: "交付天數" },
+      { num: <>857</>, label: "作品靜態頁面數" },
+      { num: <><em>∞</em></>, label: "對 YAGNI 的信仰" },
     ],
-    servicesLabel: "服務項目",
-    servicesTitle: "我能幫你做什麼",
+    about: {
+      label: "關於",
+      title: <>不寫得多，<em>寫得剛好</em></>,
+      p1: "懶人科技的名字來自一個信念 — 工程師的價值不在寫得多，而在寫得剛好。我花了十年研究怎麼用最少的 code 解決最多的問題，這幾年 AI 工具出現之後，這件事終於不再是空談。",
+      p2: "我是 Kai，全端開發者，住在台北。專案從想法到上線通常落在 3–7 天，靠的不是加班，而是對工具鏈的熟悉和對 over-engineering 的敬畏。",
+      p3: "如果你的需求是「做一個能用的東西，不要花三個月」，我們應該會聊得來。",
+      sig: "KAI · FULL-STACK · TAIPEI",
+    },
+    servicesLabel: "服務",
+    servicesTitle: <>我能幫你<em>做什麼</em></>,
     servicesSub: "從簡單的形象網站到複雜的網頁應用，都在處理範圍內。",
     services: [
-      { icon: "🖥️", title: "形象網站 / 落地頁", desc: "乾淨、快速、RWD，適合個人品牌、小型企業、產品展示。", price: "從 NT$5,000 起" },
-      { icon: "⚙️", title: "網頁應用程式", desc: "有互動功能的網頁 App，登入系統、資料庫、API 串接都 OK。", price: "從 NT$15,000 起" },
-      { icon: "🔌", title: "API 串接 / 自動化", desc: "串接第三方 API、金流、爬蟲、或自動化工作流程。", price: "依需求報價" },
-      { icon: "🤖", title: "AI 功能整合", desc: "幫你的產品加入 ChatGPT、Claude 或其他 AI 能力。", price: "依需求報價" },
-      { icon: "🔄", title: "n8n 自動化工作流", desc: "用 n8n 串接你的工具鏈——自動通知、資料同步、排程任務、AI 觸發流程，讓重複的事情自己跑。", price: "從 NT$8,000 起" },
+      { num: "01", title: "形象網站 / 落地頁", desc: "乾淨、快速、RWD，適合個人品牌、小型企業、產品展示。SEO 基礎、Vercel 部署一條龍。", price: "NT$5,000 起" },
+      { num: "02", title: "網頁應用程式", desc: "有互動的網頁 App — 登入系統、資料庫、API 串接、後台管理。React / Next.js / Node.js。", price: "NT$15,000 起" },
+      { num: "03", title: "API 串接與自動化", desc: "串接第三方 API、金流、爬蟲、排程任務。把重複的事情變成背景作業。", price: "依需求報價" },
+      { num: "04", title: "AI 功能整合", desc: "在既有產品加入 Claude / GPT 能力：對話介面、內容生成、embedding 搜尋、agent workflow。", price: "依需求報價" },
+      { num: "05", title: "n8n 工作流自動化", desc: "用 n8n 串接工具鏈 — 通知、資料同步、AI 觸發。讓重複的事情自己跑。", price: "NT$8,000 起" },
     ],
-    worksLabel: "作品集",
-    worksTitle: "做過的東西",
-    worksSub: "以下是近期 side project，展示技術能力與設計風格。",
+    case: {
+      label: "案例研究",
+      meta: ["2026", "Next.js · Chrome Extension", "Solo Build"],
+      title: <>一個 Prompt 庫，<em>一份資料，兩個產品</em></>,
+      intro: "PromptLite 是我 2026 年上線的 side project — 一個分類整理的 AI prompt 庫，支援 5 種語言，同時提供網站和 Chrome Extension。做這個專案時我刻意挑戰「一個人能做到多少」，最後的答案是 5 個關鍵決策撐起整個產品。",
+      decisions: [
+        {
+          n: "01",
+          title: "4,285 頁靜態生成，零後端",
+          body: <>857 條 prompt × 5 語系 = 4,285 頁，全部 build time 預生成推上 Vercel。沒有資料庫、沒有 API、沒有使用者登入。好處：<code>TTFB &lt; 50ms</code>、沒有擴容問題、營運成本趨近於零。</>
+        },
+        {
+          n: "02",
+          title: "Monorepo-lite：網站與 Extension 共用一份資料",
+          body: <>Extension 沒有自己的 data 目錄。透過 Vite <code>@data/*</code> alias 直接 import 網站的 <code>data/prompts/*.ts</code>，5 語系在 build 時靜態打包進 bundle。加一個 prompt，兩邊同步更新。git pre-push hook 會提醒「記得重 build Extension」。</>
+        },
+        {
+          n: "03",
+          title: "i18n 不靠框架",
+          body: <>沒用 next-intl、沒用 i18next。純 TypeScript 檔案 + Next.js middleware 做 Accept-Language 偵測。5 種語系（zh-TW / zh-CN / en / ja / ko）各自一份獨立 module，載入成本 = 0，也沒有被第三方綁架的風險。</>
+        },
+        {
+          n: "04",
+          title: "Chrome Extension Manifest V3，只要一個權限",
+          body: <>只宣告 <code>storage</code>（存語言偏好）。不要 <code>activeTab</code>、不要 content script、不要 <code>clipboardWrite</code>。Chrome Web Store 審查極快，使用者看 permission list 時不會被嚇到 — 這是 side project 上架最大的隱形成本，我選擇從源頭避開。</>
+        },
+        {
+          n: "05",
+          title: "動態 OG 圖用 Edge Runtime 生成",
+          body: <>每條 prompt 都有專屬分享卡片。用 <code>next/og</code> 的 ImageResponse 在 Edge 生成，首次請求 ~200ms，之後 CDN cache。實際上只有一個路由，但生成 4000+ 張圖 — 對 solo 專案來說這是個幾乎免費的成長槓桿。</>
+        },
+      ],
+      quote: "懶不是偷懶，是對複雜度的節制。",
+      quoteCite: "— Lazy Tech Principle #1",
+      cta: "看 PromptLite",
+    },
+    worksLabel: "其他作品",
+    worksTitle: <>做過的<em>東西</em></>,
+    worksSub: "近期 side project，展示技術能力與設計風格。",
     works: [
-      { icon: "✦", thumb: "work-thumb-1", tags: ["Next.js", "i18n", "AI"], title: "PromptLite", desc: "150 種 AI Prompt 分類整理，一鍵複製，支援繁中／英文，已上線運行。", url: "https://promptlite.app" },
+      { thumb: "work-thumb-1", icon: "✦", meta: "Next.js · i18n · AI · 2026", title: "PromptLite", desc: "150 條 AI Prompt，5 語系，網站 + Chrome Extension。", url: "https://promptlite.app" },
+    ],
+    pricing: {
+      label: "方案",
+      title: <>三種<em>合作方式</em></>,
+      sub: "不確定自己屬於哪種？直接寫信問，我會告訴你。",
+      plans: [
+        {
+          name: "Starter",
+          meta: "單頁 / 形象網站",
+          price: "NT$5,000",
+          priceSuffix: "起",
+          timeline: "交付 3–5 天 · 1 輪修改",
+          features: ["RWD 響應式切版", "SEO 基本設定", "Vercel 自動部署", "原始碼交付", "1 輪修改"],
+          cta: "寫信詢問",
+          featured: false,
+        },
+        {
+          name: "Pro",
+          meta: "網頁應用 / 動態功能",
+          price: "NT$15,000",
+          priceSuffix: "起",
+          timeline: "交付 7–14 天 · 2 輪修改",
+          features: ["Starter 所有項目", "資料庫整合（Postgres / Supabase）", "使用者登入系統", "第三方 API 整合", "後台管理介面", "2 輪修改"],
+          cta: "寫信詢問",
+          featured: true,
+        },
+        {
+          name: "Custom",
+          meta: "複雜整合 / 長期合作",
+          price: "議定",
+          priceSuffix: "",
+          timeline: "時程依需求 · 持續修改",
+          features: ["Pro 所有項目", "AI 功能深度整合", "n8n 自動化工作流", "長期維護選項", "每月例會 / 進度報告"],
+          cta: "寫信討論",
+          featured: false,
+        },
+      ],
+    },
+    writing: {
+      label: "短文",
+      title: <>工作方式的<em>筆記</em></>,
+      sub: "關於 AI 時代的軟體開發、over-engineering、以及為什麼我總是選簡單的路。",
+      closeLabel: "關閉",
+      backLabel: "返回所有文章",
+      posts: [
+        {
+          n: "#001", date: "2026 · 04", title: "為什麼我不再相信「可擴充性」", read: "3 分鐘",
+          body: (<>
+            <p className="lead">Scalability 曾是工程師的神。我在剛工作的前五年也虔誠地信過——每一個決策都要問一句「這能撐多少 QPS？」，每一次選型都要考慮「流量十倍怎麼辦」。直到做了夠多 side project，我才承認：對絕大多數產品來說，可擴充性是最被過譽的關鍵字。</p>
+            <p>殘酷的事實：99% 的 side project 從來不會到達需要水平擴充的流量。但你會為了那個「萬一」，付出資料庫選型的時間、cache 層的複雜度、訊息佇列的依賴、多實例部署的維運成本。這些成本是看不見的，每一個都讓你離「上線」遠一點。</p>
+            <h3>PromptLite 的例子</h3>
+            <p>PromptLite 是 857 條 prompt × 5 語系 = 4,285 頁全靜態。沒有資料庫、沒有 API、沒有使用者登入。它能撐多少流量？只要 Vercel 的免費額度夠就夠，而我從來沒接近過那個上限。月成本 <code>&lt; $5</code>，TTFB <code>&lt; 50ms</code>。</p>
+            <p>如果我當初為了「以後要加使用者系統」而選了 Postgres + NextAuth + Redis，我不會在上線 6 週後才發現：使用者其實不需要登入。他們要的是一個能複製貼上的 prompt 而已。</p>
+            <blockquote>可擴充性應該是問題出現再解決。過早優化不是罪，過早上架構才是。</blockquote>
+            <p>你的時間，是這個階段最稀缺的資源——不是 CPU，不是記憶體。寫一個能服務 1000 人的版本，上線，看看有沒有人要，再來擔心第 10001 個人。</p>
+          </>)
+        },
+        {
+          n: "#002", date: "2026 · 03", title: "AI 時代的 over-engineering 看起來更像什麼", read: "4 分鐘",
+          body: (<>
+            <p className="lead">以前的 over-engineering 是多寫一層 interface、多抽一個 base class、多做一個 design pattern。那時候還有個好處——它很慢，寫完大概累了就停了。現在 AI 讓你在 5 秒內寫出那一層，於是 over-engineering 變得更隱形、更難發現，而且更多。</p>
+            <h3>我看過的三種新型態</h3>
+            <p><strong>1. 為了 edge case 的 42 行 try-catch。</strong>一個單次執行的腳本，AI 幫你處理了檔案不存在、權限不足、磁碟滿、網路斷線、記憶體耗盡——每一個都 catch 起來轉成友善錯誤訊息。腳本本身只有 8 行。</p>
+            <p><strong>2. 為了「未來擴充」的 builder pattern。</strong>只需要一個 function，AI 把它抽成 <code>class ThingBuilder</code>、<code>class ThingValidator</code>、<code>interface IThing</code>。你的整個專案都還沒有「未來」，這段 code 就已經在為它準備了。</p>
+            <p><strong>3. 為了重用的 abstract base class。</strong>只會在一個地方用的 helper，AI 認為它「很可能有別的用例」，於是先抽象再說。三個月後這個 class 還是只在那一個地方被 import。</p>
+            <h3>判斷的新準則</h3>
+            <p>現在分辨 over-engineering 的方式，不是看 code 寫得複雜不複雜，而是問一句：<strong>「這段 code 解決的是現在的問題，還是想像中未來的問題？」</strong></p>
+            <p>用 AI 寫 code 時，我永遠補一句 prompt：<code>保持最簡單的形式，不要加錯誤處理、介面、抽象，除非我明確要求。</code> 它會照做。</p>
+            <blockquote>品質來自你的限制，不是 AI 的能力。</blockquote>
+          </>)
+        },
+        {
+          n: "#003", date: "2026 · 03", title: "用 Vercel + Static 打造月成本 < $5 的產品", read: "5 分鐘",
+          body: (<>
+            <p className="lead">獨立開發者最大的迷思是「我需要後端」。很多時候你不需要。這篇文章是我用 Vercel + 靜態生成打造多個產品之後，把帳單攤開給自己看的總結。</p>
+            <h3>成本結構</h3>
+            <p>PromptLite，4,285 頁，1200+ MAU。月成本攤開：</p>
+            <p>
+              · Vercel Free Plan：<code>$0</code><br/>
+              · Namecheap 域名：<code>$12/年 ≈ $1/月</code><br/>
+              · Google AdSense：<strong>進帳</strong>，不是支出<br/>
+              · 資料庫：<code>$0</code>（沒有）<br/>
+              · Auth：<code>$0</code>（沒有）<br/>
+              · 監控：<code>$0</code>（Vercel 內建）
+            </p>
+            <p>總計：<code>$1/月</code>。沒寫錯，是一美金。</p>
+            <h3>為什麼能這麼便宜</h3>
+            <p>build time 解決 runtime 問題。當所有頁面在建置階段就產出，runtime 只需要 CDN 派發。而 CDN 在大型雲端商眼中幾乎是免費資源。</p>
+            <p>更深一層：沒有資料庫 = 沒有 SQL injection、race condition、backup 問題。沒有登入 = 沒有 auth token、session management、密碼外洩風險。沒有 API = 沒有 rate limit、DDoS 防護、CORS 設定。你省的不只是錢，是整整一堆維運心智負擔。</p>
+            <h3>不適合的情境</h3>
+            <p>我不會假裝這是萬靈丹。這套架構不適合需要使用者個人資料、即時互動、個人化推薦的產品。社交、聊天、儀表板、SaaS 後台，這些還是要後端。</p>
+            <p>但適合：工具站、內容庫、文件、personal site、SaaS 的 marketing page、教學、課程、作品集。比你以為的多。</p>
+            <blockquote>先問自己「這個功能一定要動態嗎？」80% 的時候答案是否。</blockquote>
+          </>)
+        },
+        {
+          n: "#004", date: "2026 · 02", title: "懶人方法論：三個問題篩掉 80% 的需求", read: "3 分鐘",
+          body: (<>
+            <p className="lead">收到需求單時我會問三個問題。不是為了拒絕客戶，是為了確保我們在解決對的問題——做一個花了三個月卻沒人用的功能，是雙方都虧。</p>
+            <h3>Q1：「這個功能不做會怎樣？」</h3>
+            <p>如果答案是「沒怎樣」、「用手動處理也行」、「其實現在也沒這個也能跑」，那它通常不該進 v1。v1 的目的是驗證：這個產品有沒有人要。加了它不會讓這個問題更清楚，只會讓 v1 晚上線。</p>
+            <h3>Q2：「誰會最常用這個？」</h3>
+            <p>最常見的陷阱是「管理員一週用一次」的功能被做成 full-stack UI。這種功能，用 Google Sheet 加一個 Apps Script 可能五分鐘解決，成本是做網頁版的百分之一。</p>
+            <p>永遠先問使用頻率。低頻功能不值得 product-grade UI。</p>
+            <h3>Q3：「你怎麼知道它有用？」</h3>
+            <p>如果沒有可量化的成功指標——「轉換率提高 X%」、「客服時數減少 Y 小時」、「使用者留存超過 Z 天」——做完你也不會知道該留還是該砍。那不如不做。</p>
+            <p>有指標的需求有個特質：你會想迭代它。沒指標的需求做完就死了。</p>
+            <h3>為什麼這叫「懶人方法論」</h3>
+            <p>因為真正的懶是不做該做的事之外的事。勤勞的人什麼都接，然後死在 scope creep 裡。懶人砍需求、留核心、早上線，然後用上線後的真實反饋決定下一步。</p>
+            <blockquote>砍需求比加需求難，但回報率高十倍。客戶會感謝你省了他們錢。</blockquote>
+          </>)
+        },
+      ],
+    },
+    processLabel: "合作流程",
+    processTitle: <>怎麼<em>跟我合作</em></>,
+    process: [
+      {
+        n: "01",
+        title: "說需求",
+        desc: "寫 email 告訴我你想做什麼。24 小時內回覆，把模糊需求變成可執行規格。",
+        deliverable: <>需求確認單<br/>時程與報價草稿</>,
+      },
+      {
+        n: "02",
+        title: "確認報價與時程",
+        desc: "收到規格後給你正式報價。多數專案 3–14 天，複雜專案另計。付訂金後開始。",
+        deliverable: <>正式報價<br/>合約 / 簡易協議書</>,
+      },
+      {
+        n: "03",
+        title: "開發 + 回報進度",
+        desc: "每 2–3 天更新一次進度（螢幕錄影或 staging URL）。有問題隨時溝通，不會等到最後才給你看。",
+        deliverable: <>Staging 預覽連結<br/>進度紀錄</>,
+      },
+      {
+        n: "04",
+        title: "交付 + 調整",
+        desc: "完成後提供原始碼、部署、簡易文件。含一輪免費修改，確保你拿到的是能用的東西。",
+        deliverable: <>原始碼 (Git)<br/>部署環境<br/>操作文件</>,
+      },
     ],
     stackLabel: "技術棧",
-    stackTitle: "用什麼工具做事",
-    stack: ["⚛️ React", "🟩 Node.js", "🐍 Python", "🗃️ PostgreSQL", "☁️ Vercel", "🐳 Docker", "🤖 Claude API", "📦 Next.js"],
-    processLabel: "合作流程",
-    processTitle: "怎麼跟我合作",
-    process: [
-      { title: "說需求", desc: "在 Fiverr 傳訊息告訴我你想做什麼，我會在 24 小時內回覆並確認需求細節。" },
-      { title: "確認報價與時程", desc: "根據需求提供報價，通常 3–7 個工作天內交付，複雜專案另計。" },
-      { title: "開發 + 回報進度", desc: "開發過程中定期更新進度，有問題隨時溝通。" },
-      { title: "交付 + 調整", desc: "完成後提供原始碼與部署，包含一次免費修改。" },
+    stackTitle: <>用的<em>工具</em></>,
+    stackSub: "挑選原則：邊界清楚、社群穩定、能被 AI 工具有效輔助。",
+    stack: ["React", "Next.js", "TypeScript", "Node.js", "Python", "PostgreSQL", "Supabase", "Tailwind", "Vercel", "Docker", "Claude API", "OpenAI API", "n8n", "Vite", "Playwright"],
+    faqLabel: "常見問題",
+    faqTitle: <>你<em>可能想問的</em></>,
+    faqs: [
+      { q: "你用 AI 寫 code，品質有保證嗎？", a: "AI 是放大器，放大能力也放大錯誤 — 品質最終靠的是做決策的人。我會 review 每一行 AI 生成的 code，測試覆蓋重要邏輯，不會把「能跑」當成「完成」。" },
+      { q: "交付後多久內可以修改？", a: "每個方案都包含免費修改輪數（Starter 1 輪、Pro 2 輪）。超過之後按時計費，或我們可以談長期維護合約。一個月內發現的 bug 我無償修。" },
+      { q: "可以簽 NDA 嗎？", a: "可以。寄信給我附上你的 NDA，我看完確認沒有不合理條款就簽。一般 side project 不需要，商業專案建議簽。" },
+      { q: "我有 Figma 設計稿，你可以直接切嗎？", a: "可以。Figma 切版是日常工作，也很適合 AI 工具加速。如果設計稿有 design system 會更快。" },
+      { q: "如果專案做一半我想中止？", a: "把已完成部分交付給你（含原始碼），按進度退還未執行部分的訂金。沒做完的不拿錢是基本。" },
+      { q: "你會用什麼方式交付？", a: "原始碼放 GitHub（我的 repo transfer 給你，或直接 push 到你的 repo）、部署在 Vercel（帳號你擁有）、附一份簡易 README 告訴你怎麼維護。" },
+      { q: "接不接長期合作 / retainer？", a: "接。適合有持續需求的團隊 — 每月固定時數，靈活調度。寫信談。" },
+      { q: "可以用台幣 / 美金付款嗎？", a: "可以。台幣：銀行匯款或 LINE Pay；美金：PayPal。訂金 50%，尾款交付時結清。其他支付方式（Wise / USDT 等）之後視需求再開。" },
     ],
-    ctaTitle: "準備好開始了嗎？",
-    ctaDesc: "在 Fiverr 找到我，說說你的需求，我們來聊聊。",
-    ctaFiverr: "在 Fiverr 找我",
-    ctaEmail: "寄信給我",
+    ctaTitle: <>準備<em>開始了嗎？</em></>,
+    ctaDesc: "寫信告訴我你的需求，我們來聊聊。",
+    ctaPrimary: "寫信給我",
+    ctaSecondary: "查看合作方案",
     footerCopy: "© 2026 懶人科技 · Lazy Tech",
+    footerTag: "Built lazy, shipped fast",
   },
   en: {
     lang: "中文",
-    navCta: "Contact Me",
-    heroTag: "Available for Work",
-    heroTitle: <>Your idea, <em>built fast</em></>,
-    heroTitleStr: "Your idea, built fast",
-    heroDesc: "Full-stack web development with React & Node.js. I use AI tools to ship faster without cutting corners. Tell me what you need.",
-    heroBtnPrimary: "View Fiverr Plans",
-    heroBtnSecondary: "See My Work ↓",
+    navCta: "Contact",
+    hero: {
+      meta: ["Available for Work", "Taipei · Remote"],
+      title: <>Your idea, <em>built fast<Wave/></em></>,
+      desc: "Full-stack web development with React and Node.js. I use AI tools to ship faster — without cutting corners on quality. Tell me what you need.",
+      btnPrimary: "See Pricing Plans",
+      btnSecondary: "See My Work",
+    },
     stats: [
-      { num: "5x", label: "Faster with AI tools" },
-      { num: "3", label: "Core tech stacks" },
-      { num: "Fast", label: "Delivery focused" },
+      { num: <>5<em>×</em></>, label: "Faster with AI" },
+      { num: <>3<em>–</em>7</>, label: "Days to Deliver" },
+      { num: <>857</>, label: "Static Pages Shipped" },
+      { num: <><em>∞</em></>, label: "Faith in YAGNI" },
     ],
+    about: {
+      label: "About",
+      title: <>Not more code — <em>the right code</em></>,
+      p1: "Lazy Tech is built on a belief — an engineer's value isn't in writing a lot, but in writing just enough. I've spent ten years figuring out how to solve the most problems with the least code. With AI tools now in the picture, this finally stopped being just talk.",
+      p2: "I'm Kai, a full-stack developer based in Taipei. Projects typically ship in 3–7 days — not through late nights, but through familiarity with the toolchain and a healthy fear of over-engineering.",
+      p3: "If your brief is \"build something that works, don't take three months,\" we'll probably get along.",
+      sig: "KAI · FULL-STACK · TAIPEI",
+    },
     servicesLabel: "Services",
-    servicesTitle: "What I can build for you",
+    servicesTitle: <>What I can <em>build for you</em></>,
     servicesSub: "From simple landing pages to full web applications — I've got it covered.",
     services: [
-      { icon: "🖥️", title: "Landing Page / Portfolio", desc: "Clean, fast, fully responsive. Perfect for personal brands, small businesses, or product showcases.", price: "From $150" },
-      { icon: "⚙️", title: "Web Application", desc: "Interactive web apps with auth, database, and API integration. Built to scale.", price: "From $500" },
-      { icon: "🔌", title: "API Integration", desc: "Connect third-party APIs, payment gateways, scrapers, or automated workflows.", price: "Custom quote" },
-      { icon: "🤖", title: "AI Feature Integration", desc: "Add ChatGPT, Claude, or other AI capabilities to your existing product.", price: "Custom quote" },
-      { icon: "🔄", title: "n8n Workflow Automation", desc: "Connect your tools with n8n — auto notifications, data sync, scheduled tasks, AI-triggered pipelines. Let the boring stuff run itself.", price: "From $250" },
+      { num: "01", title: "Landing Page / Portfolio", desc: "Clean, fast, fully responsive. Perfect for personal brands, small businesses, or product showcases. SEO + Vercel deploy included.", price: "From $150" },
+      { num: "02", title: "Web Application", desc: "Interactive web apps with auth, database, API integration, and admin panels. React / Next.js / Node.js stack.", price: "From $500" },
+      { num: "03", title: "API & Automation", desc: "Connect third-party APIs, payment gateways, scrapers, or scheduled jobs. Turn repetitive work into background tasks.", price: "Custom quote" },
+      { num: "04", title: "AI Integration", desc: "Add Claude or GPT to existing products: chat UIs, content generation, embedding search, agent workflows.", price: "Custom quote" },
+      { num: "05", title: "n8n Workflow", desc: "Wire your tools together with n8n — notifications, data sync, AI-triggered pipelines. Let the boring stuff run itself.", price: "From $250" },
     ],
-    worksLabel: "Portfolio",
-    worksTitle: "Things I've built",
-    worksSub: "Recent side projects showcasing my skills and design sense.",
+    case: {
+      label: "Case Study",
+      meta: ["2026", "Next.js · Chrome Extension", "Solo Build"],
+      title: <>One prompt library, <em>one dataset, two products</em></>,
+      intro: "PromptLite is my 2026 side project — a categorized library of AI prompts in 5 languages, shipped as both a website and a Chrome Extension. I set out to challenge how much one person can ship. The answer came down to 5 key decisions.",
+      decisions: [
+        {
+          n: "01",
+          title: "4,285 static pages, zero backend",
+          body: <>857 prompts × 5 locales = 4,285 pages, all pre-generated at build time and pushed to Vercel. No database, no API, no user auth. Result: <code>TTFB &lt; 50ms</code>, no scaling issues, near-zero operating cost.</>
+        },
+        {
+          n: "02",
+          title: "Monorepo-lite: website and extension share one dataset",
+          body: <>The extension has no data folder of its own. Via Vite's <code>@data/*</code> alias it directly imports the site's <code>data/prompts/*.ts</code>. Add one prompt, both update. A git pre-push hook reminds me to rebuild the extension.</>
+        },
+        {
+          n: "03",
+          title: "i18n without a framework",
+          body: <>No next-intl, no i18next. Just TypeScript files plus Next.js middleware doing Accept-Language detection. Five locales (zh-TW / zh-CN / en / ja / ko) as independent modules — zero runtime cost, zero vendor lock-in.</>
+        },
+        {
+          n: "04",
+          title: "Chrome Extension Manifest V3 with a single permission",
+          body: <>Only <code>storage</code> (for language preference). No <code>activeTab</code>, no content scripts, no <code>clipboardWrite</code>. Chrome Web Store review is fast, users aren't scared by the permission list — often the hidden cost of shipping a side project.</>
+        },
+        {
+          n: "05",
+          title: "Dynamic OG images via Edge Runtime",
+          body: <>Every prompt gets its own share card. Generated on Edge via <code>next/og</code>'s ImageResponse — ~200ms cold, CDN-cached thereafter. One route, 4000+ images. Near-free growth leverage for a solo project.</>
+        },
+      ],
+      quote: "Lazy isn't laziness — it's restraint in the face of complexity.",
+      quoteCite: "— Lazy Tech Principle #1",
+      cta: "Visit PromptLite",
+    },
+    worksLabel: "Other Work",
+    worksTitle: <>Things I've <em>built</em></>,
+    worksSub: "Recent side projects showcasing skills and design sense.",
     works: [
-      { icon: "✦", thumb: "work-thumb-1", tags: ["Next.js", "i18n", "AI"], title: "PromptLite", desc: "150 curated AI prompts organized by category. One-click copy, bilingual (zh/en), live in production.", url: "https://promptlite.app" },
+      { thumb: "work-thumb-1", icon: "✦", meta: "Next.js · i18n · AI · 2026", title: "PromptLite", desc: "150 AI prompts across 5 languages. Website + Chrome Extension.", url: "https://promptlite.app" },
     ],
-    stackLabel: "Tech Stack",
-    stackTitle: "Tools I work with",
-    stack: ["⚛️ React", "🟩 Node.js", "🐍 Python", "🗃️ PostgreSQL", "☁️ Vercel", "🐳 Docker", "🤖 Claude API", "📦 Next.js"],
+    pricing: {
+      label: "Pricing",
+      title: <>Three ways to <em>work together</em></>,
+      sub: "Not sure which fits? Email me and I'll tell you.",
+      plans: [
+        {
+          name: "Starter",
+          meta: "Landing / Portfolio",
+          price: "$150",
+          priceSuffix: "+",
+          timeline: "3–5 days · 1 revision",
+          features: ["Responsive design", "Basic SEO", "Vercel deploy", "Source code handover", "1 revision round"],
+          cta: "Email to Inquire",
+          featured: false,
+        },
+        {
+          name: "Pro",
+          meta: "Web App / Dynamic",
+          price: "$500",
+          priceSuffix: "+",
+          timeline: "7–14 days · 2 revisions",
+          features: ["Everything in Starter", "Database (Postgres / Supabase)", "User authentication", "Third-party API integration", "Admin panel", "2 revision rounds"],
+          cta: "Email to Inquire",
+          featured: true,
+        },
+        {
+          name: "Custom",
+          meta: "Complex / Long-term",
+          price: "Quote",
+          priceSuffix: "",
+          timeline: "Timeline TBD · Ongoing",
+          features: ["Everything in Pro", "Deep AI integration", "n8n automation", "Long-term maintenance", "Monthly reviews"],
+          cta: "Email to Discuss",
+          featured: false,
+        },
+      ],
+    },
+    writing: {
+      label: "Writing",
+      title: <>Notes on <em>how I work</em></>,
+      sub: "On software development in the AI era, over-engineering, and why I always pick the simpler path.",
+      closeLabel: "Close",
+      backLabel: "Back to Writing",
+      posts: [
+        {
+          n: "#001", date: "2026 · 04", title: "Why I no longer believe in \"scalability\"", read: "3 min read",
+          body: (<>
+            <p className="lead">Scalability used to be the developer's god. I worshipped it for five years — every decision filtered through "how many QPS?", every stack choice shadowed by "what if traffic 10×?". Enough side projects later, I'll admit it: for most products, scalability is the most overrated word in our vocabulary.</p>
+            <p>The hard truth: 99% of side projects never approach the traffic that requires horizontal scaling. But you'll still pay for that "what if" — in database selection time, cache layer complexity, message queue dependencies, multi-instance deploy overhead. All invisible costs. All pushing "shipped" further away.</p>
+            <h3>The PromptLite case</h3>
+            <p>PromptLite is 857 prompts × 5 locales = 4,285 pages, fully static. No database, no API, no auth. How much traffic does it handle? As much as Vercel's free tier allows, and I've never come close. Monthly cost: <code>&lt; $5</code>. TTFB: <code>&lt; 50ms</code>.</p>
+            <p>Had I started with Postgres + NextAuth + Redis "for future user features", I wouldn't have discovered — 6 weeks after launch — that users don't want to log in. They want a prompt they can copy-paste. That's it.</p>
+            <blockquote>Scalability should be solved when the problem shows up. Premature optimization isn't the sin — premature architecture is.</blockquote>
+            <p>Your time is the scarcest resource at this stage. Not CPU. Not memory. Ship the version that serves 1,000. See if anyone cares. Then worry about user 10,001.</p>
+          </>)
+        },
+        {
+          n: "#002", date: "2026 · 03", title: "What over-engineering looks like in the AI era", read: "4 min read",
+          body: (<>
+            <p className="lead">Old-style over-engineering was an extra interface, a base class, a design pattern. It had one saving grace — it was slow, so exhaustion stopped you. Now AI writes that layer in five seconds, and over-engineering becomes invisible, harder to notice, and far more common.</p>
+            <h3>Three new species</h3>
+            <p><strong>1. The 42-line try-catch for edge cases.</strong> A one-shot script. AI handles file-not-found, permission-denied, disk-full, network-down, OOM — each one caught and translated to a friendly error. The actual script is 8 lines.</p>
+            <p><strong>2. The builder pattern for "future extensibility".</strong> You needed one function. AI gave you <code>class ThingBuilder</code>, <code>class ThingValidator</code>, <code>interface IThing</code>. Your project doesn't have a "future" yet — this code is already planning for it.</p>
+            <p><strong>3. The abstract base class for reuse.</strong> A helper used in one place. AI "suspects there will be more callers", so it abstracts first. Three months later, still called from exactly one place.</p>
+            <h3>The new test</h3>
+            <p>The way to spot over-engineering isn't complexity — it's asking: <strong>"Is this code solving the current problem, or an imagined future one?"</strong></p>
+            <p>When prompting AI, I always add: <code>Keep it minimal. No error handling, no interfaces, no abstractions unless I ask.</code> It listens.</p>
+            <blockquote>Quality comes from your constraints, not AI's capabilities.</blockquote>
+          </>)
+        },
+        {
+          n: "#003", date: "2026 · 03", title: "Shipping a product for under $5/month with Vercel + Static", read: "5 min read",
+          body: (<>
+            <p className="lead">The biggest myth for indie developers: "I need a backend." Often you don't. This is what I learned after running multiple products on Vercel + static generation and actually looking at the bills.</p>
+            <h3>The cost breakdown</h3>
+            <p>PromptLite — 4,285 pages, 1,200+ MAU. Monthly breakdown:</p>
+            <p>
+              · Vercel Free Plan: <code>$0</code><br/>
+              · Namecheap domain: <code>$12/yr ≈ $1/mo</code><br/>
+              · Google AdSense: <strong>revenue</strong>, not expense<br/>
+              · Database: <code>$0</code> (none)<br/>
+              · Auth: <code>$0</code> (none)<br/>
+              · Monitoring: <code>$0</code> (Vercel built-in)
+            </p>
+            <p>Total: <code>$1/month</code>. Not a typo.</p>
+            <h3>Why it's this cheap</h3>
+            <p>Build time solves runtime problems. When every page is generated at build, runtime only needs CDN distribution — which is basically free at cloud scale.</p>
+            <p>Deeper: no database means no SQL injection, no race conditions, no backup strategy. No auth means no token lifecycle, no session management, no breach risk. No API means no rate limits, no DDoS planning, no CORS config. The savings aren't just money — they're operational mental load.</p>
+            <h3>When this doesn't fit</h3>
+            <p>Not a silver bullet. This pattern fails for products needing personal data, real-time interaction, or personalization. Social, chat, dashboards, SaaS backends — still need servers.</p>
+            <p>But it works for: tools, content libraries, docs, personal sites, SaaS marketing pages, tutorials, courses, portfolios. More than you'd think.</p>
+            <blockquote>Ask first: does this feature actually need to be dynamic? 80% of the time, no.</blockquote>
+          </>)
+        },
+        {
+          n: "#004", date: "2026 · 02", title: "The Lazy Method: three questions that kill 80% of requirements", read: "3 min read",
+          body: (<>
+            <p className="lead">When I get a spec, I ask three questions. Not to reject clients — to make sure we're solving the right problem. Building something nobody uses for three months is a loss for both sides.</p>
+            <h3>Q1: "What happens if we don't build this?"</h3>
+            <p>If the answer is "nothing", "we'll handle it manually", or "honestly we've been fine without it" — it probably doesn't belong in v1. V1 exists to validate: does anyone want this product? Adding the feature doesn't clarify that question — it just delays shipping.</p>
+            <h3>Q2: "Who uses this most often?"</h3>
+            <p>The classic trap: "admin uses this once a week" features built as full-stack UI. Google Sheet + Apps Script solves it in five minutes at 1% of the cost.</p>
+            <p>Always ask usage frequency first. Low-frequency features don't deserve product-grade UI.</p>
+            <h3>Q3: "How will you know it worked?"</h3>
+            <p>No measurable success metric — "increased conversion by X%", "reduced support hours by Y", "retention > Z days" — and you won't know whether to keep or kill it after shipping. Better not to build it.</p>
+            <p>Features with metrics have a tell: you'll want to iterate on them. Features without metrics die the moment they ship.</p>
+            <h3>Why this is called "lazy"</h3>
+            <p>Real laziness is not doing what doesn't need doing. The diligent take everything and die in scope creep. The lazy cut features, keep the core, ship early, and let real-world feedback decide what's next.</p>
+            <blockquote>Cutting features is harder than adding them, but the ROI is 10×. Clients will thank you for saving their money.</blockquote>
+          </>)
+        },
+      ],
+    },
     processLabel: "How It Works",
-    processTitle: "Working with me",
+    processTitle: <>Working <em>with me</em></>,
     process: [
-      { title: "Tell me your needs", desc: "Message me on Fiverr with what you want to build. I'll reply within 24 hours to clarify requirements." },
-      { title: "Agree on scope & timeline", desc: "I'll send a clear quote with delivery timeline. Most projects ship in 3–7 business days." },
-      { title: "Build & update you", desc: "I'll keep you posted during development and stay available for questions." },
-      { title: "Deliver & revise", desc: "You get the source code, deployment, and one free round of revisions." },
+      {
+        n: "01",
+        title: "Tell me your needs",
+        desc: "Email me with what you want to build. I reply within 24 hours and turn vague requirements into something executable.",
+        deliverable: <>Requirements doc<br/>Timeline & quote draft</>,
+      },
+      {
+        n: "02",
+        title: "Agree on scope & quote",
+        desc: "Formal quote after spec is clear. Most projects ship in 3–14 days. Work starts after deposit.",
+        deliverable: <>Formal quote<br/>Contract / agreement</>,
+      },
+      {
+        n: "03",
+        title: "Build & update you",
+        desc: "Progress every 2–3 days (screen recordings or staging URL). No end-of-project surprises — you see it as I build it.",
+        deliverable: <>Staging preview link<br/>Progress log</>,
+      },
+      {
+        n: "04",
+        title: "Deliver & revise",
+        desc: "You get source code, deployment, and a lightweight doc. One free revision round included to make sure you actually got what you wanted.",
+        deliverable: <>Source (Git)<br/>Live deployment<br/>Usage doc</>,
+      },
     ],
-    ctaTitle: "Ready to start?",
-    ctaDesc: "Find me on Fiverr and tell me about your project. Let's build something.",
-    ctaFiverr: "Find Me on Fiverr",
-    ctaEmail: "Send an Email",
+    stackLabel: "Stack",
+    stackTitle: <>Tools I <em>work with</em></>,
+    stackSub: "Selection criteria: clear boundaries, stable community, works well with AI tooling.",
+    stack: ["React", "Next.js", "TypeScript", "Node.js", "Python", "PostgreSQL", "Supabase", "Tailwind", "Vercel", "Docker", "Claude API", "OpenAI API", "n8n", "Vite", "Playwright"],
+    faqLabel: "FAQ",
+    faqTitle: <>You <em>might want to know</em></>,
+    faqs: [
+      { q: "You use AI to write code — can you guarantee quality?", a: "AI is an amplifier: it amplifies capability and mistakes alike. Quality comes from whoever makes the decisions. I review every line AI produces, cover critical logic with tests, and don't confuse \"runs\" with \"done.\"" },
+      { q: "How long can I revise after delivery?", a: "Each plan includes free revisions (Starter: 1 round, Pro: 2 rounds). Beyond that it's time-and-materials, or we can set up a retainer. Bugs discovered within a month? Fixed free." },
+      { q: "Can we sign an NDA?", a: "Yes. Send me yours, I'll sign if nothing looks off. Side projects usually don't need one; commercial work is a good idea." },
+      { q: "I have Figma mockups, can you build from those?", a: "Yes. Figma-to-code is daily work and pairs well with AI tooling. A proper design system makes it even faster." },
+      { q: "What if I want to stop mid-project?", a: "I hand over what's done (including source code) and refund the unused portion of the deposit. Not getting paid for undone work is basic." },
+      { q: "How is the final work delivered?", a: "Source on GitHub (I transfer my repo or push to yours), deployed on Vercel (your account), with a lightweight README on how to maintain it." },
+      { q: "Do you take retainers / long-term work?", a: "Yes. Good fit for teams with ongoing needs — fixed hours per month, flexible allocation. Email to talk." },
+      { q: "Can I pay in TWD or USD?", a: "Yes — TWD via bank transfer or LINE Pay, USD via PayPal. 50% deposit, balance on delivery. Other options (Wise / USDT) available on request for future projects." },
+    ],
+    ctaTitle: <>Ready to <em>start?</em></>,
+    ctaDesc: "Tell me about your project — we'll find a plan that fits.",
+    ctaPrimary: "Send an Email",
+    ctaSecondary: "See Pricing Plans",
     footerCopy: "© 2026 懶人科技 · Lazy Tech",
-  }
+    footerTag: "Built lazy, shipped fast",
+  },
 };
 
 function App() {
   const [lang, setLang] = useState("zh");
   const [toast, setToast] = useState(null);
+  const [openFaq, setOpenFaq] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [activeArticle, setActiveArticle] = useState(null);
   const t = CONTENT[lang];
+
+  useEffect(() => {
+    if (activeArticle === null) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e) => { if (e.key === 'Escape') setActiveArticle(null); };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [activeArticle]);
 
   const showToast = (msg) => {
     setToast(msg);
     setTimeout(() => setToast(null), 2500);
   };
 
-  const handleFiverr = () => showToast(lang === "zh" ? "Fiverr 連結（上線後填入）" : "Fiverr link coming soon!");
-  const handleEmail = () => showToast(lang === "zh" ? "Email 連結（上線後填入）" : "Email link coming soon!");
-  const handleWork = (title) => showToast(lang === "zh" ? `查看 ${title} Demo` : `View ${title} Demo`);
+  const handleEmail = () => {
+    const subject = lang === "zh" ? "網站合作洽詢" : "Project Inquiry";
+    window.location.href = `mailto:playmmo3476@gmail.com?subject=${encodeURIComponent(subject)}`;
+  };
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+
+  // Scroll progress bar + case-num parallax
+  useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const h = document.documentElement;
+        const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+        setProgress(Math.min(100, Math.max(0, pct)));
+
+        if (!reduce) {
+          document.querySelectorAll('.case-num').forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            const vh = window.innerHeight;
+            const center = rect.top + rect.height / 2;
+            const delta = (center - vh / 2) / vh;
+            el.style.transform = `translateY(${(-delta * 18).toFixed(1)}px)`;
+          });
+        }
+        raf = 0;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => { window.removeEventListener('scroll', onScroll); if (raf) cancelAnimationFrame(raf); };
+  }, []);
+
+  // Reveal on scroll
+  useEffect(() => {
+    const els = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('revealed'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    els.forEach(el => io.observe(el));
+    return () => io.disconnect();
+  }, [lang]);
 
   return (
     <>
+      {/* Scroll progress */}
+      <div className="scroll-progress" style={{ width: `${progress}%` }} aria-hidden="true" />
+
       {/* NAV */}
       <nav>
-        <div className="nav-logo">懶人科技 <span>·</span> Lazy Tech</div>
+        <div className="nav-logo">
+          懶人科技 <span className="sep">·</span> <span className="en">Lazy Tech</span>
+        </div>
         <div className="nav-right">
-          <button className="lang-btn active" onClick={() => setLang(lang === "zh" ? "en" : "zh")}>
+          <button className="lang-btn" onClick={() => setLang(lang === "zh" ? "en" : "zh")}>
             {t.lang}
           </button>
-          <button className="nav-cta" onClick={handleFiverr}>{t.navCta}</button>
+          <button className="nav-cta" onClick={handleEmail}>{t.navCta}</button>
         </div>
       </nav>
 
       {/* HERO */}
-      <div className="container">
-        <div className="hero">
-          <div className="hero-tag">
-            <div className="hero-dot"></div>
-            {t.heroTag}
+      <div className="main">
+        <section className="hero" style={{borderBottom:'none', padding:'120px 0 96px'}}>
+          <div className="hero-meta">
+            <span className="dot"></span>
+            <span>{t.hero.meta[0]}</span>
+            <span className="sep">/</span>
+            <span>{t.hero.meta[1]}</span>
           </div>
-          <h1>{t.heroTitle}</h1>
-          <p>{t.heroDesc}</p>
+          <h1>{t.hero.title}</h1>
+          <p>{t.hero.desc}</p>
           <div className="hero-btns">
-            <button className="btn-primary" onClick={handleFiverr}>{t.heroBtnPrimary}</button>
-            <button className="btn-secondary" onClick={() => document.getElementById('works').scrollIntoView({behavior:'smooth'})}>
-              {t.heroBtnSecondary}
+            <button className="btn-primary" onClick={() => scrollTo('pricing')}>
+              {t.hero.btnPrimary} <span>→</span>
+            </button>
+            <button className="btn-text" onClick={() => scrollTo('works')}>
+              {t.hero.btnSecondary} <span className="arrow">↓</span>
             </button>
           </div>
-        </div>
+        </section>
 
         {/* STATS */}
         <div className="stats">
           {t.stats.map((s, i) => (
-            <div key={i} className="stat-item">
+            <div key={i} className="stat">
               <div className="stat-num">{s.num}</div>
               <div className="stat-label">{s.label}</div>
             </div>
           ))}
         </div>
+      </div>
 
-        {/* SERVICES */}
-        <section id="services">
-          <div className="section-label">{t.servicesLabel}</div>
-          <div className="section-title">{t.servicesTitle}</div>
-          <div className="section-sub">{t.servicesSub}</div>
+      {/* ABOUT */}
+      <section id="about">
+        <div className="narrow">
+          <div className="section-label" data-reveal><Star/> {t.about.label}</div>
+          <h2 className="section-title" data-reveal>{t.about.title}</h2>
+          <div className="about-block">
+            <p className="about-p lead" data-reveal>{t.about.p1}</p>
+            <p className="about-p" data-reveal>{t.about.p2}</p>
+            <p className="about-p" data-reveal>{t.about.p3}</p>
+            <div className="about-sig" data-reveal>
+              <span className="line"></span>
+              <span>{t.about.sig}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES */}
+      <section id="services">
+        <div className="main">
+          <div className="section-label" data-reveal><Star/> {t.servicesLabel}</div>
+          <h2 className="section-title" data-reveal>{t.servicesTitle}</h2>
+          <p className="section-sub" data-reveal>{t.servicesSub}</p>
           <div className="services-grid">
             {t.services.map((s, i) => (
-              <div key={i} className="service-card">
-                <div className="service-icon">{s.icon}</div>
+              <div key={i} className="service-card" data-reveal style={{transitionDelay: `${i * 60}ms`}}>
+                <div className="service-num">SERVICE · {s.num}</div>
                 <div className="service-title">{s.title}</div>
                 <div className="service-desc">{s.desc}</div>
                 <div className="service-price">{s.price}</div>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* WORKS */}
-        <section id="works">
-          <div className="section-label">{t.worksLabel}</div>
-          <div className="section-title">{t.worksTitle}</div>
-          <div className="section-sub">{t.worksSub}</div>
-          <div className="works-grid">
-            {t.works.map((w, i) => (
-              <div key={i} className="work-card" onClick={() => w.url ? window.open(w.url, '_blank') : handleWork(w.title)}>
-                <div className={`work-thumb ${w.thumb}`}>{w.icon}</div>
-                <div className="work-body">
-                  <div className="work-tags">
-                    {w.tags.map(tag => <span key={tag} className="work-tag">{tag}</span>)}
-                    {w.url && <span className="work-tag" style={{color:'#2563eb', background:'#eff6ff'}}>↗ Live</span>}
-                  </div>
-                  <div className="work-title">{w.title}</div>
-                  <div className="work-desc">{w.desc}</div>
+      {/* CASE STUDY */}
+      <section id="case">
+        <div className="main">
+          <div className="section-label" data-reveal><Star/> {t.case.label}</div>
+          <div className="case-meta" data-reveal>
+            {t.case.meta.map((m, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <span className="dot-sep">·</span>}
+                <span>{m}</span>
+              </React.Fragment>
+            ))}
+          </div>
+          <h2 className="case-title" data-reveal>{t.case.title}</h2>
+          <div className="narrow" style={{padding:0, maxWidth:'680px', margin:0}}>
+            <p data-reveal style={{fontSize:'19px', lineHeight:1.9, color:'var(--ink-soft)', marginBottom:'16px'}}>
+              {t.case.intro}
+            </p>
+          </div>
+
+          <div className="case-decisions">
+            {t.case.decisions.map((d, i) => (
+              <div key={i} className="case-decision" data-reveal>
+                <div className="case-num">{d.n}</div>
+                <div>
+                  <div className="case-dec-title">{d.title}</div>
+                  <div className="case-dec-body">{d.body}</div>
                 </div>
               </div>
             ))}
           </div>
-        </section>
 
-        {/* STACK */}
-        <section>
-          <div className="section-label">{t.stackLabel}</div>
-          <div className="section-title">{t.stackTitle}</div>
-          <div className="stack-grid">
-            {t.stack.map((s, i) => (
-              <div key={i} className="stack-item">
-                <span>{s}</span>
+          <div className="pull-quote" data-reveal>
+            <blockquote>{t.case.quote}</blockquote>
+            <cite>{t.case.quoteCite}</cite>
+          </div>
+
+          <div data-reveal style={{textAlign:'center', marginTop:'40px'}}>
+            <a href="https://promptlite.app" target="_blank" rel="noopener" className="case-link">
+              {t.case.cta} <span>↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* WORKS */}
+      <section id="works">
+        <div className="main">
+          <div className="section-label" data-reveal><Star/> {t.worksLabel}</div>
+          <h2 className="section-title" data-reveal>{t.worksTitle}</h2>
+          <p className="section-sub" data-reveal>{t.worksSub}</p>
+          {t.works.map((w, i) => (
+            <div key={i} className="works-feature" data-reveal onClick={() => w.url && window.open(w.url, '_blank')}>
+              <div className={`work-thumb ${w.thumb}`}>{w.icon}</div>
+              <div className="work-body">
+                <div className="work-meta">
+                  {w.meta}{w.url && <span className="live">· LIVE ↗</span>}
+                </div>
+                <div className="work-title">{w.title}</div>
+                <div className="work-desc">{w.desc}</div>
+                {w.url && <span className="work-link">{lang==='zh' ? '前往網站 →' : 'Visit Site →'}</span>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* PRICING */}
+      <section id="pricing">
+        <div className="main">
+          <div className="section-label" data-reveal><Star/> {t.pricing.label}</div>
+          <h2 className="section-title" data-reveal>{t.pricing.title}</h2>
+          <p className="section-sub" data-reveal>{t.pricing.sub}</p>
+          <div className="pricing-grid" data-reveal>
+            {t.pricing.plans.map((p, i) => (
+              <div key={i} className={`price-col ${p.featured ? 'featured' : ''}`}>
+                {p.featured && <div className="recommended-badge">Recommended</div>}
+                <div className="price-name">{p.name}</div>
+                <div className="price-meta">{p.meta}</div>
+                <div className="price-num">{p.price}<small>{p.priceSuffix}</small></div>
+                <div className="price-timeline">{p.timeline}</div>
+                <ul className="price-features">
+                  {p.features.map((f, j) => (
+                    <li key={j} className="price-feature">{f}</li>
+                  ))}
+                </ul>
+                <button className="price-cta" onClick={handleEmail}>
+                  {p.cta}
+                </button>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* PROCESS */}
-        <section>
-          <div className="section-label">{t.processLabel}</div>
-          <div className="section-title">{t.processTitle}</div>
+      {/* WRITING */}
+      <section id="writing">
+        <div className="main">
+          <div className="section-label" data-reveal><Star/> {t.writing.label}</div>
+          <h2 className="section-title" data-reveal>{t.writing.title}</h2>
+          <p className="section-sub" data-reveal>{t.writing.sub}</p>
+          <div className="writing-list">
+            {t.writing.posts.map((p, i) => (
+              <div key={i} className="writing-item" data-reveal style={{transitionDelay: `${i * 50}ms`}} onClick={() => setActiveArticle(i)}>
+                <div className="writing-meta">{p.n} · {p.date}</div>
+                <div className="writing-title">{p.title}</div>
+                <div className="writing-read">{p.read}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS */}
+      <section id="process">
+        <div className="main">
+          <div className="section-label" data-reveal><Star/> {t.processLabel}</div>
+          <h2 className="section-title" data-reveal>{t.processTitle}</h2>
           <div className="process-list">
             {t.process.map((p, i) => (
-              <div key={i} className="process-item">
-                <div className="process-num">0{i+1}</div>
-                <div className="process-content">
+              <div key={i} className="process-item" data-reveal style={{transitionDelay: `${i * 60}ms`}}>
+                <div className="process-num">{p.n}</div>
+                <div>
                   <div className="process-title">{p.title}</div>
                   <div className="process-desc">{p.desc}</div>
                 </div>
+                <div className="process-deliverable">
+                  <strong>{lang==='zh' ? '交付物' : 'Deliverables'}</strong>
+                  {p.deliverable}
+                </div>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CTA */}
-        <div className="cta-section">
-          <h2>{t.ctaTitle}</h2>
-          <p>{t.ctaDesc}</p>
-          <div className="cta-btns">
-            <button className="fiverr-btn" onClick={handleFiverr}>
-              <span>●</span> {t.ctaFiverr}
-            </button>
-            <button className="btn-secondary" onClick={handleEmail}>{t.ctaEmail}</button>
+      {/* STACK */}
+      <section id="stack">
+        <div className="main">
+          <div className="section-label" data-reveal><Star/> {t.stackLabel}</div>
+          <h2 className="section-title" data-reveal>{t.stackTitle}</h2>
+          <p className="section-sub" data-reveal>{t.stackSub}</p>
+          <div className="stack-wall" data-reveal>
+            {t.stack.map((s, i) => (
+              <div key={i} className="stack-item">{s}</div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq">
+        <div className="narrow">
+          <div className="section-label" data-reveal><Star/> {t.faqLabel}</div>
+          <h2 className="section-title" data-reveal>{t.faqTitle}</h2>
+          <div className="faq-list" data-reveal style={{marginTop:'40px'}}>
+            {t.faqs.map((f, i) => {
+              const open = openFaq === i;
+              const aId = `faq-a-${i}`;
+              return (
+                <div key={i} className={`faq-item ${open ? 'open' : ''}`}>
+                  <button
+                    className="faq-q"
+                    onClick={() => setOpenFaq(open ? null : i)}
+                    aria-expanded={open}
+                    aria-controls={aId}
+                  >
+                    <span>{f.q}</span>
+                    <span className="faq-toggle" aria-hidden="true">+</span>
+                  </button>
+                  <div id={aId} className="faq-a" role="region">{f.a}</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="cta-section" style={{border:'none'}}>
+        <div className="main">
+          <h2 className="cta-title" data-reveal>{t.ctaTitle}</h2>
+          <p className="cta-desc" data-reveal>{t.ctaDesc}</p>
+          <div className="cta-btns" data-reveal>
+            <button className="btn-primary" onClick={handleEmail} style={{padding:'16px 32px', fontSize:'15px'}}>
+              {t.ctaPrimary} <span>→</span>
+            </button>
+            <button className="btn-text" onClick={() => scrollTo('pricing')} style={{padding:'16px 20px'}}>
+              {t.ctaSecondary} <span className="arrow">↓</span>
+            </button>
+          </div>
+        </div>
+      </section>
 
       {/* FOOTER */}
       <footer>
-        <div className="footer-logo">懶人科技 <span>·</span> Lazy Tech</div>
-        <div className="footer-copy">{t.footerCopy}</div>
+        <div className="footer-logo">懶人科技 <span className="sep">·</span> Lazy Tech</div>
+        <div>{t.footerTag}</div>
+        <div>{t.footerCopy}</div>
       </footer>
 
       {toast && <div className="toast">{toast}</div>}
+
+      {/* ARTICLE OVERLAY */}
+      {activeArticle !== null && (() => {
+        const post = t.writing.posts[activeArticle];
+        return (
+          <div className="article-overlay" role="dialog" aria-modal="true" aria-label={typeof post.title === 'string' ? post.title : 'Article'}>
+            <button className="article-close" onClick={() => setActiveArticle(null)} aria-label={t.writing.closeLabel}>×</button>
+            <article className="article-inner">
+              <button className="article-back" onClick={() => setActiveArticle(null)}>
+                <span className="arrow">←</span> {t.writing.backLabel}
+              </button>
+              <div className="article-meta">
+                <span>{post.n}</span>
+                <span className="sep">/</span>
+                <span>{post.date}</span>
+                <span className="sep">/</span>
+                <span>{post.read}</span>
+              </div>
+              <h1 className="article-title">{post.title}</h1>
+              <div className="article-body">{post.body}</div>
+              <div className="article-footer">
+                <button className="article-back" onClick={() => setActiveArticle(null)}>
+                  <span className="arrow">←</span> {t.writing.backLabel}
+                </button>
+                <span>— Kai · Lazy Tech</span>
+              </div>
+            </article>
+          </div>
+        );
+      })()}
     </>
   );
 }

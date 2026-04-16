@@ -1,0 +1,16 @@
+# Playwright MCP cache
+.playwright-mcp/
+
+# Local preview / demo screenshots
+preview-*.png
+v2-*.png
+fix-*.png
+final-*.png
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
