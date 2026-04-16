@@ -146,11 +146,14 @@
   .lang-btn:hover { border-color: var(--ink); color: var(--ink); }
   .nav-cta {
     font-family: var(--font-sans);
+    display: inline-block;
     padding: 8px 18px;
     background: var(--ink);
     color: var(--paper);
     font-size: 13px; font-weight: 600;
     border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
     transition: background 0.2s;
   }
   .nav-cta:hover { background: var(--brick); }
@@ -1639,9 +1642,15 @@ function App() {
     setTimeout(() => setToast(null), 2500);
   };
 
-  const handleEmail = () => {
+  const EMAIL = "playmmo3476@gmail.com";
+  const emailHref = () => {
     const subject = lang === "zh" ? "網站合作洽詢" : "Project Inquiry";
-    window.location.href = `mailto:playmmo3476@gmail.com?subject=${encodeURIComponent(subject)}`;
+    return `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}`;
+  };
+  const handleEmail = async () => {
+    try { await navigator.clipboard.writeText(EMAIL); } catch {}
+    showToast(lang === "zh" ? `Email 已複製：${EMAIL}` : `Email copied: ${EMAIL}`);
+    window.location.href = emailHref();
   };
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
@@ -1706,7 +1715,7 @@ function App() {
           <button className="lang-btn" onClick={() => setLang(lang === "zh" ? "en" : "zh")}>
             {t.lang}
           </button>
-          <button className="nav-cta" onClick={handleEmail}>{t.navCta}</button>
+          <a className="nav-cta" href={emailHref()} onClick={() => { try { navigator.clipboard.writeText(EMAIL); } catch {} showToast(lang==='zh' ? `Email 已複製：${EMAIL}` : `Email copied: ${EMAIL}`); }}>{t.navCta}</a>
         </div>
       </nav>
 
@@ -1961,9 +1970,9 @@ function App() {
           <h2 className="cta-title" data-reveal>{t.ctaTitle}</h2>
           <p className="cta-desc" data-reveal>{t.ctaDesc}</p>
           <div className="cta-btns" data-reveal>
-            <button className="btn-primary" onClick={handleEmail} style={{padding:'16px 32px', fontSize:'15px'}}>
+            <a className="btn-primary" href={emailHref()} onClick={() => { try { navigator.clipboard.writeText(EMAIL); } catch {} showToast(lang==='zh' ? `Email 已複製：${EMAIL}` : `Email copied: ${EMAIL}`); }} style={{padding:'16px 32px', fontSize:'15px', textDecoration:'none'}}>
               {t.ctaPrimary} <span>→</span>
-            </button>
+            </a>
             <button className="btn-text" onClick={() => scrollTo('pricing')} style={{padding:'16px 20px'}}>
               {t.ctaSecondary} <span className="arrow">↓</span>
             </button>
