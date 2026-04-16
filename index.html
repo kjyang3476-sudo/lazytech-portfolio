@@ -620,11 +620,29 @@
     color: var(--ink-soft);
     margin-bottom: 28px;
   }
+  .price-original {
+    display: flex; align-items: baseline; gap: 8px;
+    margin-bottom: 6px;
+    font-family: var(--font-mono);
+    font-size: 13px; font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .price-original .strike {
+    text-decoration: line-through;
+    text-decoration-thickness: 1.5px;
+  }
+  .price-original .label {
+    font-size: 10px; letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .price-col.featured .price-original { color: var(--paper-deep); opacity: 0.75; }
   .price-num {
     font-family: 'Fraunces', var(--font-serif);
     font-size: 38px; font-weight: 700;
     letter-spacing: -1px;
     margin-bottom: 4px;
+    display: flex; align-items: center; gap: 10px;
   }
   .price-num small {
     font-size: 14px; font-weight: 500;
@@ -632,6 +650,19 @@
     margin-left: 4px;
   }
   .price-col.featured .price-num small { color: var(--paper-deep); }
+  .price-discount {
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 1px;
+    background: var(--brick);
+    color: var(--paper);
+    padding: 4px 8px;
+    border-radius: 3px;
+    transform: rotate(-2deg);
+    display: inline-block;
+    line-height: 1;
+  }
+  .price-col.featured .price-discount { background: var(--paper); color: var(--brick); }
   .price-timeline {
     font-family: var(--font-mono);
     font-size: 12px;
@@ -1229,6 +1260,9 @@ const CONTENT = {
         {
           name: "Pro",
           meta: "網頁應用 / 動態功能",
+          originalPrice: "NT$50,000",
+          originalLabel: "原價",
+          discount: "-70% OFF",
           price: "NT$15,000",
           priceSuffix: "起",
           timeline: "交付 7–14 天 · 2 輪修改",
@@ -1469,6 +1503,9 @@ const CONTENT = {
         {
           name: "Pro",
           meta: "Web App / Dynamic",
+          originalPrice: "$1,650",
+          originalLabel: "Was",
+          discount: "-70% OFF",
           price: "$500",
           priceSuffix: "+",
           timeline: "7–14 days · 2 revisions",
@@ -1865,7 +1902,16 @@ function App() {
                 {p.featured && <div className="recommended-badge">Recommended</div>}
                 <div className="price-name">{p.name}</div>
                 <div className="price-meta">{p.meta}</div>
-                <div className="price-num">{p.price}<small>{p.priceSuffix}</small></div>
+                {p.originalPrice && (
+                  <div className="price-original">
+                    <span className="label">{p.originalLabel}</span>
+                    <span className="strike">{p.originalPrice}</span>
+                  </div>
+                )}
+                <div className="price-num">
+                  <span>{p.price}<small>{p.priceSuffix}</small></span>
+                  {p.discount && <span className="price-discount">{p.discount}</span>}
+                </div>
                 <div className="price-timeline">{p.timeline}</div>
                 <ul className="price-features">
                   {p.features.map((f, j) => (
